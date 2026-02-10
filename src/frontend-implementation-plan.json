@@ -1,0 +1,85 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Fix IC custom-domain resolution and production base-path/asset reliability for Fauji Finance",
+  "requirements": [
+    {
+      "id": "REQ-37",
+      "summary": "Restore reliable loading on the live icp0 URL by ensuring custom-domain resolution support, correct base path behavior, and no core asset/routing 404s in production.",
+      "acceptanceCriteria": [
+        "Opening `https://faujifinance.icp0.io` on mobile loads the Fauji Finance Home page (no \"Canister ID Not Resolved\" error).",
+        "Opening `https://faujifinance.icp0.io/services` loads the Services page.",
+        "Opening `https://faujifinance.icp0.io/contact` loads the Contact page.",
+        "No unexpected 404s occur for core static assets required by the Home/Services/Contact pages when tested on the deployed site."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/.well-known/ic-domains",
+          "operation": "create",
+          "description": "Add the IC custom-domain allowlist file to support boundary-node domain -> canister resolution for `faujifinance.icp0.io`, which can prevent intermittent \"Canister ID Not Resolved\" on some clients."
+        },
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Add an explicit `<base href=\"%BASE_URL%\">` (Vite base placeholder) to ensure production builds correctly resolve module/script and relative URLs when served under the deployed base path; keep existing mount + entry behavior compatible with the build-template-react setup (verify the component's usage instructions before implementing)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Harden TanStack Router basepath handling by normalizing `import.meta.env.BASE_URL` (leading/trailing slash consistency) to avoid route mismatches across IC deployments and custom domains."
+        },
+        {
+          "path": "frontend/src/utils/publicAssetUrl.ts",
+          "operation": "modify",
+          "description": "Strengthen asset URL construction for production by safely handling already-absolute URLs and by aligning normalization with the router/base tag behavior so core static assets never 404 due to base-path double-slash or missing-slash issues."
+        },
+        {
+          "path": "frontend/src/components/ProductionDiagnostics.tsx",
+          "operation": "create",
+          "description": "Create a small, non-invasive diagnostics component (rendered only when explicitly enabled, e.g., via query param) to display runtime BASE_URL/basepath and a quick checklist of key asset URLs for troubleshooting deployed routing/asset issues (verify the component's usage instructions before implementing)."
+        },
+        {
+          "path": "frontend/src/components/SiteLayout.tsx",
+          "operation": "modify",
+          "description": "Wire `ProductionDiagnostics` into the main layout behind an explicit opt-in condition so it is reachable for production validation without adding new routes or altering navigation (verify the component's usage instructions before implementing)."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Audit and ensure all Home page static image references continue to use `publicAssetUrl(...)` and match the deployed public asset paths, preventing unexpected 404s for required hero/illustrations/representative photos."
+        },
+        {
+          "path": "frontend/src/pages/ServicesPage.tsx",
+          "operation": "modify",
+          "description": "Audit and ensure Services page background/process banner and Fauji icon sprite usage resolves via `publicAssetUrl(...)` under the deployed base path, preventing asset 404s on mobile/production."
+        },
+        {
+          "path": "frontend/src/pages/ContactPage.tsx",
+          "operation": "modify",
+          "description": "Audit Contact page for any production-only path issues (e.g., embedded resources and any static assets) and ensure no internal navigation relies on hardcoded absolute paths that could bypass the base path."
+        }
+      ]
+    },
+    {
+      "id": "REQ-38",
+      "summary": "Support production smoke testing by updating and aligning the production checklist with the deployed base path, routing behavior, and mobile responsiveness expectations.",
+      "acceptanceCriteria": [
+        "All checks in `frontend/SMOKE_TEST_PRODUCTION.md` sections 1–6 pass on the live deployment URL.",
+        "Browser console shows no JavaScript errors and no failed network requests for required assets on Home, Services, and Contact.",
+        "Mobile viewport testing confirms layout remains responsive and key CTAs (Call/WhatsApp sticky bar and buttons) remain usable."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/SMOKE_TEST_PRODUCTION.md",
+          "operation": "modify",
+          "description": "Update the smoke-test checklist to explicitly cover icp0 custom-domain validation (including checking `.well-known/ic-domains` availability), base tag/BASE_URL expectations, and verifying no asset 404s for the exact required images on Home/Services/Contact."
+        },
+        {
+          "path": "frontend/src/components/StickyContactBar.tsx",
+          "operation": "modify",
+          "description": "Add any small, targeted responsiveness and safe-area handling fixes needed to ensure the sticky Call/WhatsApp CTAs remain tappable and unobstructed across common mobile viewports during the production smoke test."
+        }
+      ]
+    }
+  ]
+}

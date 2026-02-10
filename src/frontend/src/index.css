@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.5rem;
+        
+        /* Fauji Finance Color System - Light Mode */
+        --background: 0.98 0.01 140;
+        --foreground: 0.2 0.02 140;
+        
+        --card: 1 0 0;
+        --card-foreground: 0.2 0.02 140;
+        
+        --popover: 1 0 0;
+        --popover-foreground: 0.2 0.02 140;
+        
+        /* Army Green - Primary */
+        --primary: 0.35 0.08 145;
+        --primary-foreground: 0.98 0.01 140;
+        
+        /* Dark Olive - Secondary */
+        --secondary: 0.28 0.06 140;
+        --secondary-foreground: 0.98 0.01 140;
+        
+        --muted: 0.94 0.01 140;
+        --muted-foreground: 0.5 0.02 140;
+        
+        --accent: 0.92 0.02 140;
+        --accent-foreground: 0.2 0.02 140;
+        
+        --destructive: 0.55 0.22 25;
+        --destructive-foreground: 0.98 0 0;
+        
+        --border: 0.88 0.02 140;
+        --input: 0.88 0.02 140;
+        --ring: 0.35 0.08 145;
+        
+        /* Fauji Custom Colors */
+        --fauji-dark: 0.2 0.02 140;
+        --fauji-green: 0.35 0.08 145;
+        --fauji-olive: 0.28 0.06 140;
+        --fauji-cream: 0.92 0.02 60;
+        --fauji-light: 0.96 0.01 140;
+    }
+
+    .dark {
+        --background: 0.15 0.02 140;
+        --foreground: 0.98 0.01 140;
+        
+        --card: 0.2 0.02 140;
+        --card-foreground: 0.98 0.01 140;
+        
+        --popover: 0.18 0.02 140;
+        --popover-foreground: 0.98 0.01 140;
+        
+        --primary: 0.45 0.1 145;
+        --primary-foreground: 0.15 0.02 140;
+        
+        --secondary: 0.25 0.05 140;
+        --secondary-foreground: 0.98 0.01 140;
+        
+        --muted: 0.25 0.03 140;
+        --muted-foreground: 0.7 0.02 140;
+        
+        --accent: 0.3 0.05 140;
+        --accent-foreground: 0.98 0.01 140;
+        
+        --destructive: 0.6 0.24 25;
+        --destructive-foreground: 0.15 0.02 140;
+        
+        --border: 0.3 0.03 140;
+        --input: 0.3 0.03 140;
+        --ring: 0.45 0.1 145;
+        
+        --fauji-dark: 0.15 0.02 140;
+        --fauji-green: 0.45 0.1 145;
+        --fauji-olive: 0.35 0.07 140;
+        --fauji-cream: 0.92 0.02 60;
+        --fauji-light: 0.25 0.03 140;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-bold;
+        line-height: 1.2;
+    }
+    
+    h1 {
+        @apply text-4xl md:text-5xl lg:text-6xl;
+    }
+    
+    h2 {
+        @apply text-3xl md:text-4xl lg:text-5xl;
+    }
+    
+    h3 {
+        @apply text-2xl md:text-3xl;
+    }
+    
+    p {
+        line-height: 1.7;
+    }
+}
+
+@layer utilities {
+    .safe-area-bottom {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}

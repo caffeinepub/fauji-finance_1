@@ -1,0 +1,71 @@
+{
+  "kind": "build_request",
+  "title": "Rebuild and redeploy Fauji Finance to fix 'Canister ID Not Resolved' on live link",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-37",
+      "text": "Investigate and resolve why the live URL `https://faujifinance.icp0.io` shows the Internet Computer error \"Canister ID Not Resolved\" on mobile, then rebuild and redeploy the Fauji Finance site so the live URL reliably loads the website again.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-22"
+        ],
+        "quotes": [
+          "is link se open nhi hora h\ncanister id not resolved aara h",
+          "yes"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Opening `https://faujifinance.icp0.io` on mobile loads the Fauji Finance Home page (no \"Canister ID Not Resolved\" error).",
+        "Opening `https://faujifinance.icp0.io/services` loads the Services page.",
+        "Opening `https://faujifinance.icp0.io/contact` loads the Contact page.",
+        "No unexpected 404s occur for core static assets required by the Home/Services/Contact pages when tested on the deployed site."
+      ]
+    },
+    {
+      "id": "REQ-38",
+      "text": "After redeployment, perform a production smoke test on the live deployment URL following `frontend/SMOKE_TEST_PRODUCTION.md`, focusing on routing, asset loading under the deployed base path, and mobile responsiveness.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-22"
+        ],
+        "quotes": [
+          "yes"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All checks in `frontend/SMOKE_TEST_PRODUCTION.md` sections 1–6 pass on the live deployment URL.",
+        "Browser console shows no JavaScript errors and no failed network requests for required assets on Home, Services, and Contact.",
+        "Mobile viewport testing confirms layout remains responsive and key CTAs (Call/WhatsApp sticky bar and buttons) remain usable."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not edit any files under `frontend/src/components/ui` (read-only components).",
+    "Do not modify immutable hook entrypoints: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`.",
+    "Backend must remain a single Motoko actor in `backend/main.mo`; only add `backend/migration.mo` if an upgrade requires state migration."
+  ],
+  "nonGoals": [
+    "Do not add new pages or change site navigation beyond what is required to restore the live deployment.",
+    "Do not introduce new authentication providers (Internet Identity only, if auth is used at all).",
+    "Do not add external databases or third-party backend services."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [
+      "Use English for user-facing text in build requests."
+    ],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

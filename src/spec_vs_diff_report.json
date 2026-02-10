@@ -1,0 +1,53 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-10T13:12:23.705Z",
+  "summary": "The diff adds IC custom-domain support via `.well-known/ic-domains`, improves base-path handling for routing and asset URLs (likely addressing “Canister ID Not Resolved”/deployment-path issues), and updates the production smoke-test checklist. However, the diff does not provide evidence of an actual redeploy or that the required production smoke test was performed and passed on the live URL. It also introduces an unrequested in-app diagnostics panel.",
+  "missing_requirements": [
+    {
+      "id": "REQ-37",
+      "requirement": "Rebuild and redeploy the Fauji Finance site so the live URL https://faujifinance.icp0.io reliably loads (Home/Services/Contact) without “Canister ID Not Resolved” and without unexpected 404s for core static assets.",
+      "reason": "The diff shows code/config changes that may help (routing basepath normalization, asset URL helper, and adding `.well-known/ic-domains`), but contains no evidence of an actual rebuild/redeployment or verification on the live URL that the pages load and assets do not 404.",
+      "evidence": [
+        "frontend/public/.well-known/ic-domains",
+        "frontend/src/App.tsx",
+        "frontend/src/utils/publicAssetUrl.ts",
+        "frontend/index.html"
+      ]
+    },
+    {
+      "id": "REQ-38",
+      "requirement": "Perform a production smoke test on the live deployment URL following frontend/SMOKE_TEST_PRODUCTION.md (sections 1–6) and confirm no console errors/failed asset requests and mobile responsiveness/CTAs usability.",
+      "reason": "The checklist file exists/was modified, but the diff provides no evidence that the smoke test was executed on the live deployment or that all checks passed (including console/network clean and mobile CTA usability).",
+      "evidence": [
+        "frontend/SMOKE_TEST_PRODUCTION.md"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Added an in-app “Production Debug Panel” diagnostics UI toggled by `?diagnostics=1` showing BASE_URL and core asset links.",
+      "reason": "The BuildRequest asks to fix the live deployment and run a smoke test; it does not request adding a new diagnostics panel UI to the site.",
+      "evidence": [
+        "frontend/src/components/ProductionDiagnostics.tsx",
+        "frontend/src/components/SiteLayout.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.74,
+  "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/SMOKE_TEST_PRODUCTION.md",
+    "frontend/index.html",
+    "frontend/public/.well-known/ic-domains",
+    "frontend/src/App.tsx",
+    "frontend/src/components/ProductionDiagnostics.tsx",
+    "frontend/src/components/SiteLayout.tsx",
+    "frontend/src/components/StickyContactBar.tsx",
+    "frontend/src/pages/ContactPage.tsx",
+    "frontend/src/pages/HomePage.tsx",
+    "frontend/src/pages/ServicesPage.tsx",
+    "frontend/src/utils/publicAssetUrl.ts",
+    "project_state.json"
+  ]
+}
