@@ -1,66 +1,143 @@
 {
   "kind": "build_request",
-  "title": "Rebuild and redeploy Fauji Finance to fix 'Canister ID Not Resolved' on live link",
-  "priority": "high",
+  "title": "Enhance homepage colors, layout safety, animations, and add finance-style photo sections",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-37",
-      "text": "Investigate and resolve why the live URL `https://faujifinance.icp0.io` shows the Internet Computer error \"Canister ID Not Resolved\" on mobile, then rebuild and redeploy the Fauji Finance site so the live URL reliably loads the website again.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-22"
-        ],
-        "quotes": [
-          "is link se open nhi hora h\ncanister id not resolved aara h",
-          "yes"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Opening `https://faujifinance.icp0.io` on mobile loads the Fauji Finance Home page (no \"Canister ID Not Resolved\" error).",
-        "Opening `https://faujifinance.icp0.io/services` loads the Services page.",
-        "Opening `https://faujifinance.icp0.io/contact` loads the Contact page.",
-        "No unexpected 404s occur for core static assets required by the Home/Services/Contact pages when tested on the deployed site."
-      ]
-    },
-    {
-      "id": "REQ-38",
-      "text": "After redeployment, perform a production smoke test on the live deployment URL following `frontend/SMOKE_TEST_PRODUCTION.md`, focusing on routing, asset loading under the deployed base path, and mobile responsiveness.",
+      "id": "REQ-1",
+      "text": "Improve the Home page visual theme so it is not overly light: increase contrast, introduce a cohesive finance/army-green palette (backgrounds, cards, headings, buttons), and ensure consistent typography and spacing across sections.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-22"
+          "msg-8"
         ],
         "quotes": [
-          "yes"
+          "front page is very light add proper colors"
         ]
       },
       "acceptanceCriteria": [
-        "All checks in `frontend/SMOKE_TEST_PRODUCTION.md` sections 1–6 pass on the live deployment URL.",
-        "Browser console shows no JavaScript errors and no failed network requests for required assets on Home, Services, and Contact.",
-        "Mobile viewport testing confirms layout remains responsive and key CTAs (Call/WhatsApp sticky bar and buttons) remain usable."
+        "Home page sections have clearly differentiated background tones (e.g., alternating subtle tints) and readable text contrast on all cards/sections.",
+        "Primary/secondary CTA buttons have clear hover/focus states and remain readable on light and dark backgrounds.",
+        "No user-facing text is changed to non-English as part of this redesign (English only for new UI copy)."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Fix layout collisions/overlaps on the Home page by auditing responsive breakpoints and spacing (especially hero overlays, section transitions, and card grids) so content never visually collides at common viewport sizes.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-8"
+        ],
+        "quotes": [
+          "add proper colors and animations so it will not collide with each other"
+        ]
+      },
+      "acceptanceCriteria": [
+        "At widths 360px, 768px, 1024px, and 1440px, no text, buttons, or images overlap each other (including the hero CTA overlay and carousel).",
+        "All sections maintain adequate vertical spacing between headings, cards, and media; no clipped content occurs.",
+        "Sticky/mobile UI (if present) does not cover critical Home page content."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Enhance homepage animations to feel more like modern finance websites while remaining lightweight: add subtle section transitions, hover micro-interactions, and (where appropriate) animated accent elements; all animations must respect prefers-reduced-motion.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-8"
+        ],
+        "quotes": [
+          "add proper colors and animations",
+          "take example of other finance websites"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Animations remain smooth and subtle (no large distracting motion) and are consistent across sections.",
+        "When the OS setting prefers-reduced-motion is enabled, auto-advancing and motion-heavy effects are disabled/reduced while content remains fully accessible.",
+        "Interactive elements (cards/buttons) show clear hover and focus feedback without layout shift."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Add additional Home page content sections beyond the current limited set, inspired by finance marketing sites, including at minimum: (1) a customer savings/profit examples section with multiple example cards and figures, and (2) one additional credibility-oriented section (e.g., testimonials slider, FAQs, or stats/metrics).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-8"
+        ],
+        "quotes": [
+          "only three home contant add few more",
+          "add more data and features profits to custoners example of saving and all"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Home page includes a dedicated section that shows multiple (3+) example profit/savings scenarios in a clear card layout.",
+        "Home page includes at least one additional section chosen from testimonials, FAQs, or stats/metrics, with consistent styling and spacing.",
+        "All new sections are responsive and do not create overlap/collision issues."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add finance-website-style 'celebrity' photo content using AI-generated, non-identifiable celebrity-style/brand-ambassador imagery (do not use real person likenesses) and integrate these images into one or more Home page sections in a visually coherent way.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-8"
+        ],
+        "quotes": [
+          "add celebrity photos if u can"
+        ]
+      },
+      "acceptanceCriteria": [
+        "New AI-generated photo-style images are added as static assets under frontend/public/assets/generated and rendered on the Home page.",
+        "Images are clearly non-identifiable (no real celebrity likeness) and match the site’s color theme.",
+        "Images load via existing public asset URL handling and display a graceful fallback on error (using the existing image component pattern)."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Update the structured content source(s) used by the Home page so the new sections (profit/savings examples and additional credibility content) are content-driven (easy to edit) rather than hardcoded in multiple places.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-8"
+        ],
+        "quotes": [
+          "add few more"
+        ]
+      },
+      "acceptanceCriteria": [
+        "New Home page sections pull their titles/body/items from the existing content module pattern (e.g., frontend/src/content/faujiFinanceContent.ts).",
+        "No duplicated content constants are introduced in page components when a centralized content module is available.",
+        "The Home page renders successfully with the expanded content set."
       ]
     }
   ],
   "constraints": [
-    "Do not edit any files under `frontend/src/components/ui` (read-only components).",
-    "Do not modify immutable hook entrypoints: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`.",
-    "Backend must remain a single Motoko actor in `backend/main.mo`; only add `backend/migration.mo` if an upgrade requires state migration."
+    "Do not modify any files under frontend/src/components/ui (read-only components must be composed, not edited).",
+    "Do not edit immutable frontend hook/bootstrap files (e.g., frontend/src/main.tsx, frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts).",
+    "Keep the backend as a single Motoko actor; no additional backend services or databases."
   ],
   "nonGoals": [
-    "Do not add new pages or change site navigation beyond what is required to restore the live deployment.",
-    "Do not introduce new authentication providers (Internet Identity only, if auth is used at all).",
-    "Do not add external databases or third-party backend services."
+    "Implementing real celebrity integrations, scraping, or using copyrighted celebrity photos.",
+    "Adding third-party auth providers beyond Internet Identity.",
+    "Adding real-time features (WebSockets/chat/push notifications).",
+    "Building a complex admin CMS; only lightweight content-constant updates are in scope."
   ],
   "imageRequirements": {
-    "required": [],
+    "required": [
+      "Photo-style portrait of a non-identifiable finance brand ambassador in a premium suit, army-green + cream color grading (celebrity-ambassador-1.dim_1200x1200.png)",
+      "Photo-style portrait of a non-identifiable finance brand ambassador, confident pose, studio lighting, army-green theme (celebrity-ambassador-2.dim_1200x1200.png)",
+      "Wide photo-style banner with 2–3 non-identifiable finance ambassadors, modern fintech aesthetic, army-green palette (celebrity-banner.dim_1920x800.png)"
+    ],
     "edits": []
   },
   "userProfileUpdate": {
     "goalsToAdd": [],
     "goalsToRemove": [],
     "preferencesToAdd": [
-      "Use English for user-facing text in build requests."
+      "Use English for user-facing text"
     ],
     "preferencesToRemove": [],
     "miscToAdd": [],

@@ -1,11 +1,14 @@
 # Specification
 
 ## Summary
-**Goal:** Fix the live Fauji Finance deployment so `https://faujifinance.icp0.io` reliably loads on mobile (no “Canister ID Not Resolved”), then rebuild/redeploy and verify via production smoke tests.
+**Goal:** Refresh the Home page to look more modern and finance-oriented with a higher-contrast army-green palette, safer responsive layout, lightweight animations, and new content sections including savings/profit examples and credibility content, plus non-identifiable AI “brand ambassador” photo sections.
 
 **Planned changes:**
-- Investigate the cause of the “Canister ID Not Resolved” error on the live ICP URL (with emphasis on mobile access and deployed base-path/routing configuration).
-- Rebuild and redeploy the site so core routes (`/`, `/services`, `/contact`) resolve correctly on the live domain.
-- Validate the live deployment by running the production smoke test checklist in `frontend/SMOKE_TEST_PRODUCTION.md` (sections 1–6), focusing on routing, asset loading, and mobile responsiveness.
+- Update Home page visual theme to increase contrast, apply a cohesive finance/army-green palette across backgrounds/cards/typography/buttons, and standardize spacing.
+- Audit and fix responsive layout collisions/overlaps across common breakpoints (hero overlays, section transitions, card grids).
+- Add subtle, modern finance-style animations (section transitions and hover micro-interactions) with full prefers-reduced-motion support.
+- Add new Home page sections: a profit/savings examples section (3+ cards with figures) and at least one credibility-oriented section (testimonials/FAQs/stats).
+- Add AI-generated, non-identifiable “celebrity-style” brand ambassador images as static assets and integrate them into Home page sections with graceful image loading fallback.
+- Update the Home page content source(s) so new sections are driven from centralized content modules rather than duplicated/hardcoded.
 
-**User-visible outcome:** Opening `https://faujifinance.icp0.io` (and `/services`, `/contact`) loads the correct pages on mobile without the canister resolution error, and pages load without missing core static assets or console/network errors.
+**User-visible outcome:** The Home page appears richer and more professional with a darker, higher-contrast finance/army-green look, no overlapping content on common screen sizes, subtle modern animations, added savings/profit and credibility sections, and new non-identifiable ambassador-style photo content.

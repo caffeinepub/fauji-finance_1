@@ -1,297 +1,57 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 25,
-  "summary": "Build a multi-page, mobile-friendly website for 'Fauji Finance' using provided Hinglish content and a trust + fauji discipline tone; Team/Gallery user-photo features were previously disabled due to image-loading issues, but the user requests adding representative photos to the site using user-provided images (already Mohit, and now also add Shekhar Yadav and Rajvir Singh Yadav similarly). Continue using assistant-provided (generated/royalty-free) visuals elsewhere, expand the copy with team qualification/experience details, add a Google Map for the address, and refine the layout to match a typical finance-business website. A build/deploy attempt encountered an internal configuration error and needs retry/investigation.",
-  "architectural_notes": [
-    "Tone: trust + fauji discipline; simple language suitable for less-educated audience (Hinglish).",
-    "Design: Army Green/Dark Olive/White palette; bold simple fonts; Indian Army-inspired background; icons like shield/flag/handshake/rupee.",
-    "Target: mobile-friendly (phone) responsive layout.",
-    "If adding images beyond user uploads, use royalty-free/licensed or generated assets and keep them consistent with the army green/olive theme.",
-    "Per user request: remove/disable user-uploaded Team/Gallery photo features and use assistant-provided generated/royalty-free images instead; keep pages usable without any uploaded images.",
-    "Content update: include team qualifications/experience (Mohit GATE engineer; Shekhar graduate 8+ yrs; Rajvir 25+ yrs) and mention services now available online due to Mohit.",
-    "Add Google Maps embed/link for the address in Address/Timing and/or Contact.",
-    "User request update: add Mohit’s user-provided photo to the site (revisit prior Team/Gallery photo disablement as needed).",
-    "User request update: add Shekhar Yadav and Rajvir Singh Yadav similarly to Mohit (ideally via representative mini-cards/sections without re-enabling full Team/Gallery pages)."
-  ],
-  "known_issues": [
-    "User reports uploaded photos are not displaying on the live website; needs investigation and fix.",
-    "After deploying Version 2, images are still unavailable/not loading on the live site (issue persists).",
-    "User confirms images are still unavailable/not loading after Draft Version 3 deployment; same issue persists.",
-    "User reports that no photos have been added/embedded yet (still not appearing on the live site).",
-    "Build/deploy failed with an internal configuration error ('Please inform the Caffeine team'); requires retry and/or investigation.",
-    "Live site link https://faujifinance.icp0.io shows Internet Computer error: \"Canister ID Not Resolved\" (site not opening on mobile); requires rebuild/redeploy and investigation of canister/domain resolution."
-  ],
-  "isFixRequest": true,
+  "projectStateVersion": 3,
+  "summary": "Finance/fintech marketing website/app draft that needs a rebuild/redeploy with richer content, improved homepage design (colors/animations/layout), and additional sections showcasing customer savings/profit examples.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Photo-style portrait of a non-identifiable finance brand ambassador in a premium suit, army-green + cream color grading (celebrity-ambassador-1.dim_1200x1200.png)\n- Photo-style portrait of a non-identifiable finance brand ambassador, confident pose, studio lighting, army-green theme (celebrity-ambassador-2.dim_1200x1200.png)\n- Wide photo-style banner with 2–3 non-identifiable finance ambassadors, modern fintech aesthetic, army-green palette (celebrity-banner.dim_1920x800.png)",
   "existing_features": [
     {
-      "id": "feature-create-a-multi-page-mobile-responsive-marketing-website-for-fauji-finance-using-the-user-provided-hinglish-copy-with-clear-navigation-between-pages-sections",
-      "title": "Create a multi-page, mobile-responsive marketing website for “FAUJI FINANCE” using the user-provided Hinglish copy, with clear navigation between pages/sections.",
+      "id": "feature-improve-the-home-page-visual-theme-so-it-is-not-overly-light-increase-contrast-introduce-a-cohesive-finance-army-green-palette-backgrounds-cards-headings-buttons-and-ensure-consistent-typography-and-spacing-across-sections",
+      "title": "Improve the Home page visual theme so it is not overly light: increase contrast, introduce a cohesive finance/army-green palette (backgrounds, cards, headings, buttons), and ensure consistent typography and spacing across sections.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-the-home-page-using-the-provided-sections-and-copy-hero-with-call-now-whatsapp-ctas-about-us-why-choose-fauji-finance-address-timing-and-a-contact-summary-block",
-      "title": "Implement the Home page using the provided sections and copy: Hero (with Call Now + WhatsApp CTAs), About Us, Why Choose Fauji Finance, Address & Timing, and a Contact summary block.",
+      "id": "feature-fix-layout-collisions-overlaps-on-the-home-page-by-auditing-responsive-breakpoints-and-spacing-especially-hero-overlays-section-transitions-and-card-grids-so-content-never-visually-collides-at-common-viewport-sizes",
+      "title": "Fix layout collisions/overlaps on the Home page by auditing responsive breakpoints and spacing (especially hero overlays, section transitions, and card grids) so content never visually collides at common viewport sizes.",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-a-services-page-that-presents-the-three-service-categories-committee-chit-fund-saving-interest-byaj-and-their-bullet-points-exactly-as-provided-with-simple-easy-to-read-cards",
-      "title": "Implement a Services page that presents the three service categories (Committee/Chit Fund, Saving, Interest/Byaj) and their bullet points exactly as provided, with simple, easy-to-read cards.",
+      "id": "feature-enhance-homepage-animations-to-feel-more-like-modern-finance-websites-while-remaining-lightweight-add-subtle-section-transitions-hover-micro-interactions-and-where-appropriate-animated-accent-elements-all-animations-must-respect-prefers-reduced-motion",
+      "title": "Enhance homepage animations to feel more like modern finance websites while remaining lightweight: add subtle section transitions, hover micro-interactions, and (where appropriate) animated accent elements; all animations must respect prefers-reduced-motion.",
       "reqIds": [
         "REQ-3"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-a-team-page-that-shows-the-three-team-members-with-their-names-roles-experience-lines-and-contact-details-exactly-as-provided-and-display-the-corresponding-uploaded-photos-for-each-member-where-available",
-      "title": "Implement a Team page that shows the three team members with their names, roles, experience lines, and contact details exactly as provided, and display the corresponding uploaded photos for each member where available.",
+      "id": "feature-add-additional-home-page-content-sections-beyond-the-current-limited-set-inspired-by-finance-marketing-sites-including-at-minimum-1-a-customer-savings-profit-examples-section-with-multiple-example-cards-and-figures-and-2-one-additional-credibility-oriented-section-e-g-testimonials-slider-faqs-or-stats-metrics",
+      "title": "Add additional Home page content sections beyond the current limited set, inspired by finance marketing sites, including at minimum: (1) a customer savings/profit examples section with multiple example cards and figures, and (2) one additional credibility-oriented section (e.g., testimonials slider, FAQs, or stats/metrics).",
       "reqIds": [
         "REQ-4"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-a-dedicated-photo-based-family-gallery-page-that-displays-all-uploaded-images-in-a-responsive-gallery-with-optional-simple-captions-like-family-photo-team-photo-office-photo-do-not-infer-identities-beyond-what-the-user-explicitly-provided",
-      "title": "Create a dedicated photo-based “Family” (Gallery) page that displays all uploaded images in a responsive gallery with optional simple captions like “Family Photo” / “Team Photo” / “Office Photo” (do not infer identities beyond what the user explicitly provided).",
+      "id": "feature-add-finance-website-style-celebrity-photo-content-using-ai-generated-non-identifiable-celebrity-style-brand-ambassador-imagery-do-not-use-real-person-likenesses-and-integrate-these-images-into-one-or-more-home-page-sections-in-a-visually-coherent-way",
+      "title": "Add finance-website-style 'celebrity' photo content using AI-generated, non-identifiable celebrity-style/brand-ambassador imagery (do not use real person likenesses) and integrate these images into one or more Home page sections in a visually coherent way.",
       "reqIds": [
         "REQ-5"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-prominent-mobile-friendly-contact-actions-across-the-site-sticky-call-and-whatsapp-buttons-or-a-floating-action-bar-using-the-provided-phone-numbers-plus-a-full-contact-page-repeating-all-contact-details-and-address-timing",
-      "title": "Add prominent, mobile-friendly contact actions across the site: sticky “Call” and “WhatsApp” buttons (or a floating action bar) using the provided phone numbers, plus a full Contact page repeating all contact details and address/timing.",
+      "id": "feature-update-the-structured-content-source-s-used-by-the-home-page-so-the-new-sections-profit-savings-examples-and-additional-credibility-content-are-content-driven-easy-to-edit-rather-than-hardcoded-in-multiple-places",
+      "title": "Update the structured content source(s) used by the Home page so the new sections (profit/savings examples and additional credibility content) are content-driven (easy to edit) rather than hardcoded in multiple places.",
       "reqIds": [
         "REQ-6"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-apply-a-cohesive-visual-theme-inspired-by-fauji-discipline-using-a-palette-of-army-green-dark-olive-and-white-use-bold-simple-typography-and-clear-section-spacing-keep-the-overall-tone-trustworthy-and-easy-for-low-literacy-users",
-      "title": "Apply a cohesive visual theme inspired by “fauji discipline” using a palette of Army Green, Dark Olive, and White; use bold, simple typography and clear section spacing; keep the overall tone trustworthy and easy for low-literacy users.",
-      "reqIds": [
-        "REQ-7"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-generate-and-include-a-simple-non-photorealistic-fauji-inspired-decorative-background-banner-image-and-a-small-set-of-matching-monochrome-icons-shield-flag-handshake-rupee-as-static-assets-and-use-them-in-the-ui",
-      "title": "Generate and include a simple, non-photorealistic “fauji-inspired” decorative background/banner image and a small set of matching monochrome icons (shield, flag, handshake, rupee) as static assets and use them in the UI.",
-      "reqIds": [
-        "REQ-8"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-graceful-ui-fallbacks-for-any-missing-unloadable-images-across-team-and-gallery-e-g-if-an-image-fails-to-load-show-a-consistent-fauji-themed-placeholder-tile-and-keep-the-layout-stable",
-      "title": "Add graceful UI fallbacks for any missing/unloadable images across Team and Gallery (e.g., if an image fails to load, show a consistent Fauji-themed placeholder tile and keep the layout stable).",
-      "reqIds": [
-        "REQ-10"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-small-amount-of-additional-on-page-content-and-a-few-additional-non-user-provided-images-generated-illustrations-to-enhance-the-site-while-keeping-the-existing-fauji-finance-tone-and-the-current-navigation-structure-unchanged",
-      "title": "Add a small amount of additional on-page content and a few additional non-user-provided images (generated illustrations) to enhance the site while keeping the existing Fauji Finance tone and the current navigation structure unchanged.",
-      "reqIds": [
-        "REQ-11"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-fix-production-asset-url-resolution-for-all-photos-referenced-in-frontend-src-content-faujifinancecontent-ts-team-photos-and-gallery-images-so-they-load-correctly-on-the-deployed-internet-computer-site-including-when-the-app-is-served-under-a-non-root-base-path",
-      "title": "Fix production asset URL resolution for all photos referenced in `frontend/src/content/faujiFinanceContent.ts` (Team photos and `GALLERY_IMAGES`) so they load correctly on the deployed Internet Computer site, including when the app is served under a non-root base path.",
-      "reqIds": [
-        "REQ-12"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-all-photo-assets-referenced-by-frontend-src-content-faujifinancecontent-ts-exist-in-the-frontend-s-static-public-assets-with-exact-filename-extension-case-match-case-sensitive-and-are-included-in-the-production-build-output",
-      "title": "Ensure all photo assets referenced by `frontend/src/content/faujiFinanceContent.ts` exist in the frontend’s static public assets with exact filename + extension + case match (case-sensitive) and are included in the production build output.",
-      "reqIds": [
-        "REQ-13"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-improve-imagewithfallback-so-it-reliably-recovers-when-the-src-prop-changes-e-g-when-switching-gallery-selections-by-resetting-its-error-state-when-a-new-src-is-provided",
-      "title": "Improve `ImageWithFallback` so it reliably recovers when the `src` prop changes (e.g., when switching Gallery selections) by resetting its error state when a new `src` is provided.",
-      "reqIds": [
-        "REQ-14"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-investigate-and-fix-why-team-and-gallery-photos-still-fail-to-load-on-the-deployed-internet-computer-site-showing-the-image-unavailable-fallback-ensuring-the-final-deployed-build-serves-the-exact-image-files-referenced-by-frontend-src-content-faujifinancecontent-ts-under-the-correct-public-url-paths",
-      "title": "Investigate and fix why Team and Gallery photos still fail to load on the deployed Internet Computer site (showing the “Image unavailable” fallback), ensuring the final deployed build serves the exact image files referenced by `frontend/src/content/faujiFinanceContent.ts` under the correct public URL paths.",
-      "reqIds": [
-        "REQ-15"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-lightweight-developer-only-runtime-diagnostic-for-image-loading-that-can-be-enabled-via-a-query-parameter-e-g-debugimages-1-to-help-confirm-the-computed-import-meta-env-base-url-and-the-final-resolved-image-urls-used-by-team-gallery-without-changing-the-user-facing-ui-when-the-flag-is-not-enabled",
-      "title": "Add a lightweight, developer-only runtime diagnostic for image loading that can be enabled via a query parameter (e.g., `?debugImages=1`) to help confirm the computed `import.meta.env.BASE_URL` and the final resolved image URLs used by Team/Gallery, without changing the user-facing UI when the flag is not enabled.",
-      "reqIds": [
-        "REQ-16"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-frontend-src-content-faujifinancecontent-ts-so-that-the-team-photos-resolve-to-real-shipped-image-files-matching-the-uploaded-images-ensuring-exact-filename-extension-case-match-and-mohit-s-photo-uses-the-image-the-user-uploaded-for-mohit",
-      "title": "Update `frontend/src/content/faujiFinanceContent.ts` so that the Team photos resolve to real, shipped image files matching the uploaded images (ensuring exact filename/extension/case match), and Mohit’s photo uses the image the user uploaded for Mohit.",
-      "reqIds": [
-        "REQ-18"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-frontend-src-content-faujifinancecontent-ts-gallery-list-gallery-images-to-include-all-5-uploaded-images-and-remove-or-temporarily-disable-any-gallery-entries-that-reference-image-files-that-are-not-present-in-the-project-s-public-assets-so-the-gallery-grid-no-longer-shows-broken-tiles",
-      "title": "Update `frontend/src/content/faujiFinanceContent.ts` gallery list (`GALLERY_IMAGES`) to include all 5 uploaded images and remove (or temporarily disable) any gallery entries that reference image files that are not present in the project’s public assets, so the Gallery grid no longer shows broken tiles.",
-      "reqIds": [
-        "REQ-19"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-remove-disable-the-team-page-and-gallery-page-from-the-live-site-navigation-and-routing-so-users-no-longer-see-broken-team-gallery-image-sections",
-      "title": "Remove/disable the Team page and Gallery page from the live site navigation and routing so users no longer see broken Team/Gallery image sections.",
-      "reqIds": [
-        "REQ-20"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-replace-team-gallery-photo-driven-content-with-new-assistant-provided-non-user-visuals-and-add-additional-on-page-content-sections-to-maintain-a-strong-trustworthy-marketing-site-experience-without-relying-on-user-uploaded-photos",
-      "title": "Replace Team/Gallery photo-driven content with new assistant-provided (non-user) visuals and add additional on-page content sections to maintain a strong, trustworthy marketing site experience without relying on user-uploaded photos.",
-      "reqIds": [
-        "REQ-21"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-frontend-src-content-faujifinancecontent-ts-to-stop-referencing-user-uploaded-team-gallery-image-assets-team-member-image-fields-and-gallery-images-and-ensure-no-removed-pages-components-depend-on-those-constants",
-      "title": "Update `frontend/src/content/faujiFinanceContent.ts` to stop referencing user-uploaded Team/Gallery image assets (TEAM member `image` fields and `GALLERY_IMAGES`) and ensure no removed pages/components depend on those constants.",
-      "reqIds": [
-        "REQ-22"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-static-site-content-to-include-the-user-requested-team-qualification-experience-details-and-the-note-that-the-business-is-now-available-online-due-to-mohit-without-re-enabling-team-gallery-photo-driven-pages",
-      "title": "Update the static site content to include the user-requested team qualification/experience details and the note that the business is now available online due to Mohit, without re-enabling Team/Gallery photo-driven pages.",
-      "reqIds": [
-        "REQ-23"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-google-maps-location-to-the-site-for-the-business-address-including-an-embedded-map-and-a-view-on-google-maps-external-link-on-the-contact-page-and-at-least-a-view-on-google-maps-link-in-the-home-page-address-section",
-      "title": "Add a Google Maps location to the site for the business address, including an embedded map and a \"View on Google Maps\" external link on the Contact page, and at least a \"View on Google Maps\" link in the Home page Address section.",
-      "reqIds": [
-        "REQ-24"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-refine-the-existing-page-layouts-home-services-contact-to-look-like-a-standard-polished-finance-business-marketing-website-while-maintaining-the-current-fauji-finance-theme-and-mobile-first-behavior",
-      "title": "Refine the existing page layouts (Home, Services, Contact) to look like a standard, polished finance-business marketing website while maintaining the current Fauji Finance theme and mobile-first behavior.",
-      "reqIds": [
-        "REQ-25"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-frontend-src-content-faujifinancecontent-ts-to-remove-the-phrase-implying-mohit-ke-aane-se-from-the-hero-onlineavailability-string-while-keeping-the-message-that-online-whatsapp-digital-support-is-available",
-      "title": "Update `frontend/src/content/faujiFinanceContent.ts` to remove the phrase implying \"Mohit ke aane se\" from the `HERO.onlineAvailability` string, while keeping the message that online/WhatsApp/digital support is available.",
-      "reqIds": [
-        "REQ-26"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-frontend-src-content-faujifinancecontent-ts-to-remove-the-sentence-wording-in-about-modernization-that-attributes-the-business-being-online-to-mohit-mohit-ke-aane-se-replacing-it-with-neutral-text-stating-online-whatsapp-digital-support-is-available",
-      "title": "Update `frontend/src/content/faujiFinanceContent.ts` to remove the sentence/wording in `ABOUT.modernization` that attributes the business being online to Mohit (\"Mohit ... ke aane se ...\"), replacing it with neutral text stating online/WhatsApp/digital support is available.",
-      "reqIds": [
-        "REQ-27"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-remove-replace-the-contact-page-promotional-paragraph-that-explicitly-says-mohit-ke-aane-se-ab-business-online-bhi-available-hai-in-frontend-src-pages-contactpage-tsx-so-that-the-contact-page-no-longer-displays-that-attribution-while-still-communicating-whatsapp-online-support-availability",
-      "title": "Remove/replace the Contact page promotional paragraph that explicitly says \"Mohit ... ke aane se ab business online bhi available hai\" in `frontend/src/pages/ContactPage.tsx`, so that the Contact page no longer displays that attribution while still communicating WhatsApp/online support availability.",
-      "reqIds": [
-        "REQ-28"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-display-mohit-s-photo-on-the-live-site-in-a-simple-professional-team-representative-mini-card-section-without-re-enabling-the-full-team-or-gallery-pages-using-imagewithfallback-for-resilience-and-an-english-alt-label",
-      "title": "Display Mohit’s photo on the live site in a simple, professional “Team/Representative” mini-card section (without re-enabling the full Team or Gallery pages), using `ImageWithFallback` for resilience and an English alt label.",
-      "reqIds": [
-        "REQ-30"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-frontend-src-content-faujifinancecontent-ts-to-include-a-dedicated-explicit-field-for-mohit-s-photo-path-url-used-by-the-new-ui-section-without-reintroducing-old-team-gallery-photo-dependencies",
-      "title": "Update `frontend/src/content/faujiFinanceContent.ts` to include a dedicated, explicit field for Mohit’s photo path/URL (used by the new UI section) without reintroducing old Team/Gallery photo dependencies.",
-      "reqIds": [
-        "REQ-31"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-frontend-src-content-faujifinancecontent-ts-to-add-dedicated-explicit-photo-path-fields-for-shekhar-yadav-and-rajvir-singh-yadav-similar-to-the-existing-representative-photopath-for-mohit-without-re-introducing-the-old-team-gallery-photo-dependencies",
-      "title": "Update `frontend/src/content/faujiFinanceContent.ts` to add dedicated, explicit photo path fields for Shekhar Yadav and Rajvir Singh Yadav (similar to the existing `REPRESENTATIVE.photoPath` for Mohit), without re-introducing the old Team/Gallery photo dependencies.",
-      "reqIds": [
-        "REQ-33"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-home-page-representative-section-frontend-src-pages-homepage-tsx-to-display-shekhar-yadav-and-rajvir-singh-yadav-in-the-same-style-as-the-existing-mohit-representative-card-i-e-a-small-professional-card-with-photo-name-role-contact-cta-while-keeping-the-site-navigation-and-routing-unchanged-do-not-re-enable-full-team-gallery-pages",
-      "title": "Update the Home page “Representative” section (`frontend/src/pages/HomePage.tsx`) to display Shekhar Yadav and Rajvir Singh Yadav in the same style as the existing Mohit representative card (i.e., a small professional card with photo + name/role + contact CTA), while keeping the site navigation and routing unchanged (do not re-enable full Team/Gallery pages).",
-      "reqIds": [
-        "REQ-34"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-investigate-and-resolve-the-build-deploy-failure-caused-by-the-internal-configuration-error-then-successfully-build-and-deploy-the-latest-version-of-the-fauji-finance-site-so-it-is-live",
-      "title": "Investigate and resolve the build/deploy failure caused by the internal configuration error, then successfully build and deploy the latest version of the Fauji Finance site so it is live.",
-      "reqIds": [
-        "REQ-35"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-after-deployment-perform-a-production-smoke-test-to-confirm-core-pages-and-critical-assets-load-correctly-on-the-live-site-including-when-served-under-a-non-root-base-path",
-      "title": "After deployment, perform a production smoke-test to confirm core pages and critical assets load correctly on the live site (including when served under a non-root base path).",
-      "reqIds": [
-        "REQ-36"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-investigate-and-resolve-why-the-live-url-https-faujifinance-icp0-io-shows-the-internet-computer-error-canister-id-not-resolved-on-mobile-then-rebuild-and-redeploy-the-fauji-finance-site-so-the-live-url-reliably-loads-the-website-again",
-      "title": "Investigate and resolve why the live URL `https://faujifinance.icp0.io` shows the Internet Computer error \"Canister ID Not Resolved\" on mobile, then rebuild and redeploy the Fauji Finance site so the live URL reliably loads the website again.",
-      "reqIds": [
-        "REQ-37"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-after-redeployment-perform-a-production-smoke-test-on-the-live-deployment-url-following-frontend-smoke-test-production-md-focusing-on-routing-asset-loading-under-the-deployed-base-path-and-mobile-responsiveness",
-      "title": "After redeployment, perform a production smoke test on the live deployment URL following `frontend/SMOKE_TEST_PRODUCTION.md`, focusing on routing, asset loading under the deployed base path, and mobile responsiveness.",
-      "reqIds": [
-        "REQ-38"
       ],
       "version": 1
     }
@@ -299,89 +59,43 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Create a multi-page, mobile-responsive website for Fauji Finance using the provided Hinglish copy (Hero, About, Team, Services, Why Choose, Address/Timing, Contact).",
+      "summary": "Rebuild/redeploy the expired draft app",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add more data and features, including customer profit/savings examples",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Redesign front page with proper color palette and improved visual contrast",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-4",
-      "summary": "Add additional site content and include extra non-user-provided images (e.g., safe/royalty-free or generated placeholders) to enhance pages while keeping the Fauji Finance tone.",
+      "summary": "Add animations/interactions while preventing layout collisions/overlaps",
       "reqIds": [],
       "status": "pending"
     },
     {
-      "id": "AR-10",
-      "summary": "Remove/disable Team member photos and the Gallery/Family photo page (or any team/gallery image sections) and replace visuals with assistant-provided non-user images (generated/royalty-free) plus add extra on-page content while keeping the Fauji Finance tone and navigation.",
+      "id": "AR-5",
+      "summary": "Add celebrity photos/imagery (finance-website style inspiration)",
       "reqIds": [],
       "status": "pending"
     },
     {
-      "id": "AR-11",
-      "summary": "Add/expand Team/About content to include: Mohit qualification (GATE engineer) + note that business is now available online due to Mohit; Shekhar graduate with 8+ years experience; Rajvir with 25+ years business experience.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-12",
-      "summary": "Add a Google Map embed/link for the business address on the Address/Timing section and/or Contact page.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-13",
-      "summary": "Refine overall UI/sections to look like a standard finance-service website (more polished, typical finance-site layout) while maintaining the Fauji Finance tone and mobile-first design.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-14",
-      "summary": "Remove/replace the copy line implying 'Mohit ke aane se' / 'business is now available online due to Mohit' because the user dislikes it.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-15",
-      "summary": "Add the user-provided photo for Mohit to the website (place it appropriately, e.g., in About/Team content) despite prior Team/Gallery photo disablement.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-16",
-      "summary": "Add the user-provided photo of Mohit as a static frontend asset and reference it via a base-path-safe URL (so it loads correctly after deployment on the Internet Computer, including under a non-root BASE_URL).",
-      "reqIds": [
-        "REQ-29"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-17",
-      "summary": "Add Shekhar Yadav to the live site similarly to Mohit (e.g., a simple professional representative mini-card/section without re-enabling full Team/Gallery pages).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-18",
-      "summary": "Add Rajvir Singh Yadav to the live site similarly to Mohit (including placing the newly uploaded photo in the chosen section, without re-enabling full Team/Gallery pages).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-19",
-      "summary": "Add the newly uploaded images as static frontend public assets so they are shipped in production and can be referenced reliably: `shekhar-2.jpeg`, `shekhar-3.jpeg`, `shekhar-4.jpeg`, `rajvirsinghyadav-2.jpeg` (preserve exact filename, extension, and case).",
-      "reqIds": [
-        "REQ-32"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-20",
-      "summary": "Deploy/publish the latest build to make the site live (user request: \"live krdo\").",
+      "id": "AR-6",
+      "summary": "Expand homepage content beyond the current three sections (add a few more sections)",
       "reqIds": [],
       "status": "pending"
     }
   ],
   "gameProjectType": "none",
-  "projectName": "Fauji Finance",
+  "projectName": "Enhance homepage colors, layout safety, animations, and add finance-style photo sections",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

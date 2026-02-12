@@ -2,18 +2,12 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-investigate-and-resolve-why-the-live-url-https-faujifinance-icp0-io-shows-the-internet-computer-error-canister-id-not-resolved-on-mobile-then-rebuild-and-redeploy-the-fauji-finance-site-so-the-live-url-reliably-loads-the-website-again",
-      "featureTitle": "Investigate and resolve why the live URL `https://faujifinance.icp0.io` shows the Internet Computer error \"Canister ID Not Resolved\" on mobile, then rebuild and redeploy the Fauji Finance site so the live URL reliably loads the website again.",
+      "featureId": "feature-improve-the-home-page-visual-theme-so-it-is-not-overly-light-increase-contrast-introduce-a-cohesive-finance-army-green-palette-backgrounds-cards-headings-buttons-and-ensure-consistent-typography-and-spacing-across-sections",
+      "featureTitle": "Improve the Home page visual theme so it is not overly light: increase contrast, introduce a cohesive finance/army-green palette (backgrounds, cards, headings, buttons), and ensure consistent typography and spacing across sections.",
       "files": [
-        "frontend/index.html",
-        "frontend/public/.well-known/ic-domains",
-        "frontend/src/App.tsx",
-        "frontend/src/components/ProductionDiagnostics.tsx",
-        "frontend/src/components/SiteLayout.tsx",
-        "frontend/src/pages/ContactPage.tsx",
+        "frontend/src/index.css",
         "frontend/src/pages/HomePage.tsx",
-        "frontend/src/pages/ServicesPage.tsx",
-        "frontend/src/utils/publicAssetUrl.ts"
+        "frontend/tailwind.config.js"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -23,16 +17,19 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-37"
+        "REQ-1"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-after-redeployment-perform-a-production-smoke-test-on-the-live-deployment-url-following-frontend-smoke-test-production-md-focusing-on-routing-asset-loading-under-the-deployed-base-path-and-mobile-responsiveness",
-      "featureTitle": "After redeployment, perform a production smoke test on the live deployment URL following `frontend/SMOKE_TEST_PRODUCTION.md`, focusing on routing, asset loading under the deployed base path, and mobile responsiveness.",
+      "featureId": "feature-fix-layout-collisions-overlaps-on-the-home-page-by-auditing-responsive-breakpoints-and-spacing-especially-hero-overlays-section-transitions-and-card-grids-so-content-never-visually-collides-at-common-viewport-sizes",
+      "featureTitle": "Fix layout collisions/overlaps on the Home page by auditing responsive breakpoints and spacing (especially hero overlays, section transitions, and card grids) so content never visually collides at common viewport sizes.",
       "files": [
-        "frontend/SMOKE_TEST_PRODUCTION.md",
-        "frontend/src/components/StickyContactBar.tsx"
+        "frontend/src/components/HeroCarousel.tsx",
+        "frontend/src/components/SiteLayout.tsx",
+        "frontend/src/components/StickyContactBar.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/HomePage.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -42,7 +39,86 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-38"
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-enhance-homepage-animations-to-feel-more-like-modern-finance-websites-while-remaining-lightweight-add-subtle-section-transitions-hover-micro-interactions-and-where-appropriate-animated-accent-elements-all-animations-must-respect-prefers-reduced-motion",
+      "featureTitle": "Enhance homepage animations to feel more like modern finance websites while remaining lightweight: add subtle section transitions, hover micro-interactions, and (where appropriate) animated accent elements; all animations must respect prefers-reduced-motion.",
+      "files": [
+        "frontend/src/components/HeroCarousel.tsx",
+        "frontend/src/components/RevealOnScroll.tsx",
+        "frontend/src/pages/HomePage.tsx",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-additional-home-page-content-sections-beyond-the-current-limited-set-inspired-by-finance-marketing-sites-including-at-minimum-1-a-customer-savings-profit-examples-section-with-multiple-example-cards-and-figures-and-2-one-additional-credibility-oriented-section-e-g-testimonials-slider-faqs-or-stats-metrics",
+      "featureTitle": "Add additional Home page content sections beyond the current limited set, inspired by finance marketing sites, including at minimum: (1) a customer savings/profit examples section with multiple example cards and figures, and (2) one additional credibility-oriented section (e.g., testimonials slider, FAQs, or stats/metrics).",
+      "files": [
+        "frontend/src/components/home/ProfitExamplesSection.tsx",
+        "frontend/src/content/faujiFinanceContent.ts",
+        "frontend/src/pages/HomePage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-finance-website-style-celebrity-photo-content-using-ai-generated-non-identifiable-celebrity-style-brand-ambassador-imagery-do-not-use-real-person-likenesses-and-integrate-these-images-into-one-or-more-home-page-sections-in-a-visually-coherent-way",
+      "featureTitle": "Add finance-website-style 'celebrity' photo content using AI-generated, non-identifiable celebrity-style/brand-ambassador imagery (do not use real person likenesses) and integrate these images into one or more Home page sections in a visually coherent way.",
+      "files": [
+        "frontend/src/pages/HomePage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-structured-content-source-s-used-by-the-home-page-so-the-new-sections-profit-savings-examples-and-additional-credibility-content-are-content-driven-easy-to-edit-rather-than-hardcoded-in-multiple-places",
+      "featureTitle": "Update the structured content source(s) used by the Home page so the new sections (profit/savings examples and additional credibility content) are content-driven (easy to edit) rather than hardcoded in multiple places.",
+      "files": [
+        "frontend/src/components/home/ProfitExamplesSection.tsx",
+        "frontend/src/content/faujiFinanceContent.ts",
+        "frontend/src/pages/HomePage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
       ],
       "confidence": "high"
     }

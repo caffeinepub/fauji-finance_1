@@ -1,53 +1,115 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T13:12:23.708Z",
+  "generatedAt": "2026-02-12T09:30:12.558Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 6,
+    "implemented": 6,
     "items": [
       {
-        "id": "REQ-37",
-        "summary": "Investigate and resolve why the live URL `https://faujifinance.icp0.io` shows the Internet Computer error \"Canister ID Not Resolved\" on mobile, then rebuild and redeploy the Fauji Finance site so the live URL reliably loads the website again.",
+        "id": "REQ-1",
+        "summary": "Improve the Home page visual theme so it is not overly light: increase contrast, introduce a cohesive finance/army-green palette (backgrounds, cards, headings, buttons), and ensure consistent typography and spacing across sections.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/public/.well-known/ic-domains",
-          "frontend/index.html",
-          "frontend/src/App.tsx",
-          "frontend/src/utils/publicAssetUrl.ts",
-          "frontend/src/components/ProductionDiagnostics.tsx",
-          "frontend/src/components/SiteLayout.tsx",
-          "frontend/src/pages/HomePage.tsx",
-          "frontend/src/pages/ServicesPage.tsx",
-          "frontend/src/pages/ContactPage.tsx"
+          "frontend/src/index.css",
+          "frontend/tailwind.config.js",
+          "frontend/src/pages/HomePage.tsx"
         ],
         "matchedFiles": [
-          "frontend/public/.well-known/ic-domains",
-          "frontend/index.html",
-          "frontend/src/App.tsx",
-          "frontend/src/utils/publicAssetUrl.ts",
-          "frontend/src/components/ProductionDiagnostics.tsx",
-          "frontend/src/components/SiteLayout.tsx",
-          "frontend/src/pages/HomePage.tsx",
-          "frontend/src/pages/ServicesPage.tsx",
-          "frontend/src/pages/ContactPage.tsx"
+          "frontend/src/index.css",
+          "frontend/tailwind.config.js",
+          "frontend/src/pages/HomePage.tsx"
         ]
       },
       {
-        "id": "REQ-38",
-        "summary": "After redeployment, perform a production smoke test on the live deployment URL following `frontend/SMOKE_TEST_PRODUCTION.md`, focusing on routing, asset loading under the deployed base path, and mobile responsiveness.",
+        "id": "REQ-2",
+        "summary": "Fix layout collisions/overlaps on the Home page by auditing responsive breakpoints and spacing (especially hero overlays, section transitions, and card grids) so content never visually collides at common viewport sizes.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/SMOKE_TEST_PRODUCTION.md",
-          "frontend/src/components/StickyContactBar.tsx"
+          "frontend/src/pages/HomePage.tsx",
+          "frontend/src/components/HeroCarousel.tsx",
+          "frontend/src/components/SiteLayout.tsx",
+          "frontend/src/components/StickyContactBar.tsx",
+          "frontend/src/index.css"
         ],
         "matchedFiles": [
-          "frontend/SMOKE_TEST_PRODUCTION.md",
-          "frontend/src/components/StickyContactBar.tsx"
+          "frontend/src/pages/HomePage.tsx",
+          "frontend/src/components/HeroCarousel.tsx",
+          "frontend/src/components/SiteLayout.tsx",
+          "frontend/src/components/StickyContactBar.tsx",
+          "frontend/src/index.css"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Enhance homepage animations to feel more like modern finance websites while remaining lightweight: add subtle section transitions, hover micro-interactions, and (where appropriate) animated accent elements; all animations must respect prefers-reduced-motion.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/tailwind.config.js",
+          "frontend/src/components/RevealOnScroll.tsx",
+          "frontend/src/pages/HomePage.tsx",
+          "frontend/src/components/HeroCarousel.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/tailwind.config.js",
+          "frontend/src/components/RevealOnScroll.tsx",
+          "frontend/src/pages/HomePage.tsx",
+          "frontend/src/components/HeroCarousel.tsx"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Add additional Home page content sections beyond the current limited set, inspired by finance marketing sites, including at minimum: (1) a customer savings/profit examples section with multiple example cards and figures, and (2) one additional credibility-oriented section (e.g., testimonials slider, FAQs, or stats/metrics).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/home/ProfitExamplesSection.tsx",
+          "frontend/src/components/home/CredibilitySection.tsx",
+          "frontend/src/pages/HomePage.tsx",
+          "frontend/src/content/faujiFinanceContent.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/home/ProfitExamplesSection.tsx",
+          "frontend/src/pages/HomePage.tsx",
+          "frontend/src/content/faujiFinanceContent.ts"
+        ]
+      },
+      {
+        "id": "REQ-5",
+        "summary": "Add finance-website-style 'celebrity' photo content using AI-generated, non-identifiable celebrity-style/brand-ambassador imagery (do not use real person likenesses) and integrate these images into one or more Home page sections in a visually coherent way.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/public/assets/generated/celebrity-ambassador-1.dim_1200x1200.png",
+          "frontend/public/assets/generated/celebrity-ambassador-2.dim_1200x1200.png",
+          "frontend/public/assets/generated/celebrity-banner.dim_1920x800.png",
+          "frontend/src/components/home/AmbassadorBannerSection.tsx",
+          "frontend/src/pages/HomePage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/public/assets/generated/celebrity-ambassador-1.dim_1200x1200.png",
+          "frontend/public/assets/generated/celebrity-ambassador-2.dim_1200x1200.png",
+          "frontend/public/assets/generated/celebrity-banner.dim_1920x800.png",
+          "frontend/src/pages/HomePage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-6",
+        "summary": "Update the structured content source(s) used by the Home page so the new sections (profit/savings examples and additional credibility content) are content-driven (easy to edit) rather than hardcoded in multiple places.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/content/faujiFinanceContent.ts",
+          "frontend/src/components/home/ProfitExamplesSection.tsx",
+          "frontend/src/components/home/CredibilitySection.tsx",
+          "frontend/src/components/home/AmbassadorBannerSection.tsx",
+          "frontend/src/pages/HomePage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/content/faujiFinanceContent.ts",
+          "frontend/src/components/home/ProfitExamplesSection.tsx",
+          "frontend/src/pages/HomePage.tsx"
         ]
       }
     ]
@@ -57,17 +119,20 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/SMOKE_TEST_PRODUCTION.md",
-    "frontend/index.html",
-    "frontend/public/.well-known/ic-domains",
-    "frontend/src/App.tsx",
-    "frontend/src/components/ProductionDiagnostics.tsx",
+    "frontend/public/assets/generated/celebrity-ambassador-1.dim_1200x1200.png",
+    "frontend/public/assets/generated/celebrity-ambassador-2.dim_1200x1200.png",
+    "frontend/public/assets/generated/celebrity-banner.dim_1920x800.png",
+    "frontend/src/components/HeroCarousel.tsx",
+    "frontend/src/components/RevealOnScroll.tsx",
     "frontend/src/components/SiteLayout.tsx",
     "frontend/src/components/StickyContactBar.tsx",
-    "frontend/src/pages/ContactPage.tsx",
+    "frontend/src/components/home/AmbassadorSection.tsx",
+    "frontend/src/components/home/CustomerStatsSection.tsx",
+    "frontend/src/components/home/ProfitExamplesSection.tsx",
+    "frontend/src/content/faujiFinanceContent.ts",
+    "frontend/src/index.css",
     "frontend/src/pages/HomePage.tsx",
-    "frontend/src/pages/ServicesPage.tsx",
-    "frontend/src/utils/publicAssetUrl.ts",
+    "frontend/tailwind.config.js",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

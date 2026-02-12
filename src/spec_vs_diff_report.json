@@ -1,53 +1,66 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T13:12:23.705Z",
-  "summary": "The diff adds IC custom-domain support via `.well-known/ic-domains`, improves base-path handling for routing and asset URLs (likely addressing “Canister ID Not Resolved”/deployment-path issues), and updates the production smoke-test checklist. However, the diff does not provide evidence of an actual redeploy or that the required production smoke test was performed and passed on the live URL. It also introduces an unrequested in-app diagnostics panel.",
+  "generatedAt": "2026-02-12T09:30:12.555Z",
+  "summary": "Diff adds new Home page sections (profit examples, customer stats/testimonials, ambassador imagery), expands the color/animation system, and updates carousel/reveal behaviors with reduced-motion handling. However, it appears to violate the “English-only for new UI copy” acceptance criterion and does not provide evidence of the specifically required AI-generated ambassador image assets being added under frontend/public/assets/generated.",
   "missing_requirements": [
     {
-      "id": "REQ-37",
-      "requirement": "Rebuild and redeploy the Fauji Finance site so the live URL https://faujifinance.icp0.io reliably loads (Home/Services/Contact) without “Canister ID Not Resolved” and without unexpected 404s for core static assets.",
-      "reason": "The diff shows code/config changes that may help (routing basepath normalization, asset URL helper, and adding `.well-known/ic-domains`), but contains no evidence of an actual rebuild/redeployment or verification on the live URL that the pages load and assets do not 404.",
+      "id": "REQ-1",
+      "requirement": "No user-facing text is changed to non-English as part of this redesign (English only for new UI copy).",
+      "reason": "The diff introduces substantial non-English (Hindi) user-facing copy in the centralized content and in a new Home section heading.",
       "evidence": [
-        "frontend/public/.well-known/ic-domains",
-        "frontend/src/App.tsx",
-        "frontend/src/utils/publicAssetUrl.ts",
-        "frontend/index.html"
+        "frontend/src/content/faujiFinanceContent.ts",
+        "frontend/src/components/home/CustomerStatsSection.tsx",
+        "frontend/src/pages/HomePage.tsx"
       ]
     },
     {
-      "id": "REQ-38",
-      "requirement": "Perform a production smoke test on the live deployment URL following frontend/SMOKE_TEST_PRODUCTION.md (sections 1–6) and confirm no console errors/failed asset requests and mobile responsiveness/CTAs usability.",
-      "reason": "The checklist file exists/was modified, but the diff provides no evidence that the smoke test was executed on the live deployment or that all checks passed (including console/network clean and mobile CTA usability).",
+      "id": "REQ-5",
+      "requirement": "Add the required AI-generated, non-identifiable ambassador images as static assets under frontend/public/assets/generated (including the specified filenames) and render them on the Home page.",
+      "reason": "Home page components reference assets under assets/generated, but the diff summary shows no added files under frontend/public/assets/generated and does not show the required specific image filenames (celebrity-ambassador-1.dim_1200x1200.png, celebrity-ambassador-2.dim_1200x1200.png, celebrity-banner.dim_1920x800.png) being added/used.",
       "evidence": [
-        "frontend/SMOKE_TEST_PRODUCTION.md"
+        "frontend/src/components/home/AmbassadorSection.tsx",
+        "frontend/src/pages/HomePage.tsx"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Added an in-app “Production Debug Panel” diagnostics UI toggled by `?diagnostics=1` showing BASE_URL and core asset links.",
-      "reason": "The BuildRequest asks to fix the live deployment and run a smoke test; it does not request adding a new diagnostics panel UI to the site.",
+      "description": "Diagnostics panel toggled by query parameter (?diagnostics=1).",
+      "reason": "Not requested in the BuildRequest; adds new behavior unrelated to homepage redesign requirements.",
       "evidence": [
-        "frontend/src/components/ProductionDiagnostics.tsx",
         "frontend/src/components/SiteLayout.tsx"
+      ]
+    },
+    {
+      "description": "Placeholder hook file frontend/src/hooks/useQueries.ts described as empty because backend has no methods.",
+      "reason": "Not requested; adds/changes hook surface area outside the scoped homepage UI work.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "Broad redesign/feature updates to non-Home pages (Services/Team/Gallery/Contact) and new gallery lightbox behavior.",
+      "reason": "BuildRequest focuses on Home page colors/layout/animations and adding specific Home sections and imagery; these extra page changes are not requested requirements.",
+      "evidence": [
+        "frontend-file-summaries.txt"
       ]
     }
   ],
   "confidence": 0.74,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/SMOKE_TEST_PRODUCTION.md",
-    "frontend/index.html",
-    "frontend/public/.well-known/ic-domains",
-    "frontend/src/App.tsx",
-    "frontend/src/components/ProductionDiagnostics.tsx",
+    "frontend/src/components/HeroCarousel.tsx",
+    "frontend/src/components/RevealOnScroll.tsx",
     "frontend/src/components/SiteLayout.tsx",
     "frontend/src/components/StickyContactBar.tsx",
-    "frontend/src/pages/ContactPage.tsx",
+    "frontend/src/components/home/AmbassadorSection.tsx",
+    "frontend/src/components/home/CustomerStatsSection.tsx",
+    "frontend/src/components/home/ProfitExamplesSection.tsx",
+    "frontend/src/content/faujiFinanceContent.ts",
+    "frontend/src/index.css",
     "frontend/src/pages/HomePage.tsx",
-    "frontend/src/pages/ServicesPage.tsx",
-    "frontend/src/utils/publicAssetUrl.ts",
+    "frontend/tailwind.config.js",
     "project_state.json"
   ]
 }

@@ -1,83 +1,201 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix IC custom-domain resolution and production base-path/asset reliability for Fauji Finance",
+  "title": "Homepage theme, responsive safety, animations, and finance-style photo/content sections",
   "requirements": [
     {
-      "id": "REQ-37",
-      "summary": "Restore reliable loading on the live icp0 URL by ensuring custom-domain resolution support, correct base path behavior, and no core asset/routing 404s in production.",
+      "id": "REQ-1",
+      "summary": "Rework Home page theme to a higher-contrast finance/army-green palette with consistent typography, spacing, and CTA styling.",
       "acceptanceCriteria": [
-        "Opening `https://faujifinance.icp0.io` on mobile loads the Fauji Finance Home page (no \"Canister ID Not Resolved\" error).",
-        "Opening `https://faujifinance.icp0.io/services` loads the Services page.",
-        "Opening `https://faujifinance.icp0.io/contact` loads the Contact page.",
-        "No unexpected 404s occur for core static assets required by the Home/Services/Contact pages when tested on the deployed site."
+        "Home page sections have clearly differentiated background tones (e.g., alternating subtle tints) and readable text contrast on all cards/sections.",
+        "Primary/secondary CTA buttons have clear hover/focus states and remain readable on light and dark backgrounds.",
+        "No user-facing text is changed to non-English as part of this redesign (English only for new UI copy)."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/.well-known/ic-domains",
-          "operation": "create",
-          "description": "Add the IC custom-domain allowlist file to support boundary-node domain -> canister resolution for `faujifinance.icp0.io`, which can prevent intermittent \"Canister ID Not Resolved\" on some clients."
-        },
-        {
-          "path": "frontend/index.html",
+          "path": "frontend/src/index.css",
           "operation": "modify",
-          "description": "Add an explicit `<base href=\"%BASE_URL%\">` (Vite base placeholder) to ensure production builds correctly resolve module/script and relative URLs when served under the deployed base path; keep existing mount + entry behavior compatible with the build-template-react setup (verify the component's usage instructions before implementing)."
+          "description": "Adjust global OKLCH theme variables and base typography defaults to increase contrast and reinforce a cohesive army-green/cream finance palette (backgrounds, foregrounds, borders, card tones). Ensure focus-ring visibility. (Uses styling system from initial-app; verify the component's usage instructions before implementing.)"
         },
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/tailwind.config.js",
           "operation": "modify",
-          "description": "Harden TanStack Router basepath handling by normalizing `import.meta.env.BASE_URL` (leading/trailing slash consistency) to avoid route mismatches across IC deployments and custom domains."
-        },
-        {
-          "path": "frontend/src/utils/publicAssetUrl.ts",
-          "operation": "modify",
-          "description": "Strengthen asset URL construction for production by safely handling already-absolute URLs and by aligning normalization with the router/base tag behavior so core static assets never 404 due to base-path double-slash or missing-slash issues."
-        },
-        {
-          "path": "frontend/src/components/ProductionDiagnostics.tsx",
-          "operation": "create",
-          "description": "Create a small, non-invasive diagnostics component (rendered only when explicitly enabled, e.g., via query param) to display runtime BASE_URL/basepath and a quick checklist of key asset URLs for troubleshooting deployed routing/asset issues (verify the component's usage instructions before implementing)."
-        },
-        {
-          "path": "frontend/src/components/SiteLayout.tsx",
-          "operation": "modify",
-          "description": "Wire `ProductionDiagnostics` into the main layout behind an explicit opt-in condition so it is reachable for production validation without adding new routes or altering navigation (verify the component's usage instructions before implementing)."
+          "description": "Extend Tailwind theme tokens (colors/shadows/animations) to support consistent finance-style section backgrounds, card elevation, and CTA states aligned with the updated palette. (Tailwind setup from initial-app/build-template-react; verify the component's usage instructions before implementing.)"
         },
         {
           "path": "frontend/src/pages/HomePage.tsx",
           "operation": "modify",
-          "description": "Audit and ensure all Home page static image references continue to use `publicAssetUrl(...)` and match the deployed public asset paths, preventing unexpected 404s for required hero/illustrations/representative photos."
-        },
-        {
-          "path": "frontend/src/pages/ServicesPage.tsx",
-          "operation": "modify",
-          "description": "Audit and ensure Services page background/process banner and Fauji icon sprite usage resolves via `publicAssetUrl(...)` under the deployed base path, preventing asset 404s on mobile/production."
-        },
-        {
-          "path": "frontend/src/pages/ContactPage.tsx",
-          "operation": "modify",
-          "description": "Audit Contact page for any production-only path issues (e.g., embedded resources and any static assets) and ensure no internal navigation relies on hardcoded absolute paths that could bypass the base path."
+          "description": "Apply updated palette and typography consistently across existing Home sections using composed shadcn-ui components (Button/Card/Badge/Separator) without editing frontend/src/components/ui; ensure CTAs have consistent hover/focus states across light/dark section backgrounds. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
-      "id": "REQ-38",
-      "summary": "Support production smoke testing by updating and aligning the production checklist with the deployed base path, routing behavior, and mobile responsiveness expectations.",
+      "id": "REQ-2",
+      "summary": "Eliminate responsive layout collisions/overlaps on Home by tightening spacing rules and breakpoints for hero overlay, transitions, and grids.",
       "acceptanceCriteria": [
-        "All checks in `frontend/SMOKE_TEST_PRODUCTION.md` sections 1–6 pass on the live deployment URL.",
-        "Browser console shows no JavaScript errors and no failed network requests for required assets on Home, Services, and Contact.",
-        "Mobile viewport testing confirms layout remains responsive and key CTAs (Call/WhatsApp sticky bar and buttons) remain usable."
+        "At widths 360px, 768px, 1024px, and 1440px, no text, buttons, or images overlap each other (including the hero CTA overlay and carousel).",
+        "All sections maintain adequate vertical spacing between headings, cards, and media; no clipped content occurs.",
+        "Sticky/mobile UI (if present) does not cover critical Home page content."
       ],
       "file_operations": [
         {
-          "path": "frontend/SMOKE_TEST_PRODUCTION.md",
+          "path": "frontend/src/pages/HomePage.tsx",
           "operation": "modify",
-          "description": "Update the smoke-test checklist to explicitly cover icp0 custom-domain validation (including checking `.well-known/ic-domains` availability), base tag/BASE_URL expectations, and verifying no asset 404s for the exact required images on Home/Services/Contact."
+          "description": "Refactor the hero CTA overlay positioning so it never collides with carousel content/controls (use responsive positioning, container spacing, and safe-area padding); audit and adjust section paddings, transitions, and grid gaps at 360/768/1024/1440 widths; ensure newly added sections follow the same spacing rules. Uses composed shadcn-ui primitives; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/HeroCarousel.tsx",
+          "operation": "modify",
+          "description": "Harden hero carousel layout to prevent overlay collisions at common breakpoints (height, content overlay spacing, control placement, and motion-reduce behavior) while keeping accessibility intact. Uses composed shadcn-ui Button; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/SiteLayout.tsx",
+          "operation": "modify",
+          "description": "Validate Home page bottom padding/safe-area handling so the StickyContactBar (mobile) cannot cover critical CTAs or new sections; adjust layout spacing hooks only (do not change bootstrap/auth hooks). Verify the component's usage instructions before implementing."
         },
         {
           "path": "frontend/src/components/StickyContactBar.tsx",
           "operation": "modify",
-          "description": "Add any small, targeted responsiveness and safe-area handling fixes needed to ensure the sticky Call/WhatsApp CTAs remain tappable and unobstructed across common mobile viewports during the production smoke test."
+          "description": "Ensure mobile sticky bar height and safe-area inset handling are consistent so it does not obscure important Home content; coordinate with Home page padding utilities. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add/adjust utility classes to support safe-area padding and consistent section spacing helpers used by Home (no per-component inline hacks). Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add lightweight modern finance-style animations (section transitions, hover micro-interactions, subtle accents) with full prefers-reduced-motion support.",
+      "acceptanceCriteria": [
+        "Animations remain smooth and subtle (no large distracting motion) and are consistent across sections.",
+        "When the OS setting prefers-reduced-motion is enabled, auto-advancing and motion-heavy effects are disabled/reduced while content remains fully accessible.",
+        "Interactive elements (cards/buttons) show clear hover and focus feedback without layout shift."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Add/standardize subtle finance-style keyframes/animations (e.g., gentle fade/slide, accent shimmer, non-jarring hover glow) for reuse across Home sections; keep durations/easings consistent and compatible with motion-reduce classes. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/RevealOnScroll.tsx",
+          "operation": "modify",
+          "description": "Tune reveal behavior to feel more modern/finance-like (subtle easing, distance, stagger support) while ensuring prefers-reduced-motion disables motion-heavy effects and content remains immediately visible. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Apply consistent animation classes to section containers/cards/CTAs (micro-interactions on hover/focus without layout shift) and add subtle animated accent elements where appropriate, using existing RevealOnScroll and motion-reduce utilities. Uses composed shadcn-ui components; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/HeroCarousel.tsx",
+          "operation": "modify",
+          "description": "Ensure hero slide text animations remain subtle and are reduced/disabled under prefers-reduced-motion; confirm auto-advance remains disabled when reduced motion is enabled. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Add new Home sections: profit/savings example cards and at least one credibility section (testimonials/FAQs/stats) with responsive styling.",
+      "acceptanceCriteria": [
+        "Home page includes a dedicated section that shows multiple (3+) example profit/savings scenarios in a clear card layout.",
+        "Home page includes at least one additional section chosen from testimonials, FAQs, or stats/metrics, with consistent styling and spacing.",
+        "All new sections are responsive and do not create overlap/collision issues."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/home/ProfitExamplesSection.tsx",
+          "operation": "create",
+          "description": "Create a Home-only section component that renders 3+ profit/savings scenarios in a consistent card grid using composed shadcn-ui Card/Badge/Button, SectionHeading, and RevealOnScroll; keep new UI copy in English. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/home/CredibilitySection.tsx",
+          "operation": "create",
+          "description": "Create an additional credibility-oriented section component (choose one: testimonials, FAQs, or stats/metrics) styled consistently with the new theme; ensure keyboard/focus accessibility and responsive behavior; keep new UI copy in English. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Wire the new ProfitExamplesSection and CredibilitySection into the existing Home page flow in appropriate positions (finance marketing layout), ensuring alternating background tones and non-colliding responsive spacing. Uses composed shadcn-ui components; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/content/faujiFinanceContent.ts",
+          "operation": "modify",
+          "description": "Add structured content entries for profit/savings examples and the selected credibility section (items, labels, figures, optional disclaimers), keeping new copy in English for newly introduced strings. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Integrate AI-generated, non-identifiable finance brand-ambassador imagery into Home sections with graceful fallback loading.",
+      "acceptanceCriteria": [
+        "New AI-generated photo-style images are added as static assets under frontend/public/assets/generated and rendered on the Home page.",
+        "Images are clearly non-identifiable (no real celebrity likeness) and match the site’s color theme.",
+        "Images load via existing public asset URL handling and display a graceful fallback on error (using the existing image component pattern)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/celebrity-ambassador-1.dim_1200x1200.png",
+          "operation": "create",
+          "description": "Add generated static asset: frontend/public/assets/generated/celebrity-ambassador-1.dim_1200x1200.png (non-identifiable finance brand ambassador portrait)."
+        },
+        {
+          "path": "frontend/public/assets/generated/celebrity-ambassador-2.dim_1200x1200.png",
+          "operation": "create",
+          "description": "Add generated static asset: frontend/public/assets/generated/celebrity-ambassador-2.dim_1200x1200.png (non-identifiable finance brand ambassador portrait)."
+        },
+        {
+          "path": "frontend/public/assets/generated/celebrity-banner.dim_1920x800.png",
+          "operation": "create",
+          "description": "Add generated static asset: frontend/public/assets/generated/celebrity-banner.dim_1920x800.png (wide banner with 2–3 non-identifiable ambassadors)."
+        },
+        {
+          "path": "frontend/src/components/home/AmbassadorBannerSection.tsx",
+          "operation": "create",
+          "description": "Create a Home section that displays the new ambassador banner + portraits using publicAssetUrl and ImageWithFallback for graceful error handling; ensure images integrate with the army-green theme and remain responsive. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Wire AmbassadorBannerSection into Home (e.g., near credibility/profit sections) and ensure layout doesn’t collide at common breakpoints; use ImageWithFallback pattern for all new images. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Make new Home sections content-driven by extending the centralized Home content module and consuming it from the page/components.",
+      "acceptanceCriteria": [
+        "New Home page sections pull their titles/body/items from the existing content module pattern (e.g., frontend/src/content/faujiFinanceContent.ts).",
+        "No duplicated content constants are introduced in page components when a centralized content module is available.",
+        "The Home page renders successfully with the expanded content set."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/content/faujiFinanceContent.ts",
+          "operation": "modify",
+          "description": "Introduce centralized, structured exports for the new Home sections (profit/savings examples, credibility content, ambassador section copy/labels), designed for easy future edits without duplicating constants across components. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/home/ProfitExamplesSection.tsx",
+          "operation": "modify",
+          "description": "Consume profit/savings data exclusively from frontend/src/content/faujiFinanceContent.ts (no inline duplicated constants), rendering figures/cards consistently. Uses composed shadcn-ui components; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/home/CredibilitySection.tsx",
+          "operation": "modify",
+          "description": "Consume credibility section data exclusively from frontend/src/content/faujiFinanceContent.ts and render it responsively with consistent styling and motion-reduce support. Uses composed shadcn-ui components; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/home/AmbassadorBannerSection.tsx",
+          "operation": "modify",
+          "description": "Consume ambassador section labels/copy from frontend/src/content/faujiFinanceContent.ts while keeping image paths centralized and rendered via publicAssetUrl + ImageWithFallback. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Remove any duplicated inline content for the newly added sections and rely on frontend/src/content/faujiFinanceContent.ts as the single source for titles/items. Verify the component's usage instructions before implementing."
         }
       ]
     }

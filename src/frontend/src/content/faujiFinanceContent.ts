@@ -134,3 +134,114 @@ export const CONTACT = {
     hours: '24 Hours Service Available',
   },
 };
+
+// New content for profit examples section
+export const PROFIT_EXAMPLES = {
+  title: 'Real Savings Examples',
+  subtitle: 'Asli Bachat',
+  description: 'Dekho kaise hamare customers ne apne sapne pure kiye',
+  examples: [
+    {
+      title: 'Committee Success',
+      amount: '₹10 Lakh',
+      duration: '20 months',
+      saving: '₹50,000 saved',
+      description: 'Monthly ₹50,000 jama karke ₹10 lakh ka committee benefit liya',
+      icon: '🎯',
+      highlight: 'Best for big purchases',
+    },
+    {
+      title: 'Daily Saving Plan',
+      amount: '₹1.5 Lakh',
+      duration: '12 months',
+      saving: '₹18,000 interest',
+      description: 'Daily ₹400 jama karke saal me ₹1.5 lakh + interest',
+      icon: '💰',
+      highlight: 'Perfect for regular income',
+    },
+    {
+      title: 'Interest Investment',
+      amount: '₹5 Lakh',
+      duration: '6 months',
+      saving: '₹45,000 returns',
+      description: '₹5 lakh invest karke 6 mahine me ₹45,000 ka return',
+      icon: '📈',
+      highlight: 'High returns guaranteed',
+    },
+  ],
+};
+
+// New content for testimonials/stats section
+export const CUSTOMER_STATS = {
+  title: 'Our Track Record',
+  subtitle: 'Hamara Record',
+  description: 'Numbers that speak for themselves',
+  stats: [
+    {
+      number: '25+',
+      label: 'Years Experience',
+      sublabel: 'Saal ka Anubhav',
+      icon: '⭐',
+    },
+    {
+      number: '500+',
+      label: 'Happy Customers',
+      sublabel: 'Khush Grahak',
+      icon: '👥',
+    },
+    {
+      number: '₹50Cr+',
+      label: 'Money Managed',
+      sublabel: 'Paisa Sambhala',
+      icon: '💼',
+    },
+    {
+      number: '100%',
+      label: 'Trust & Safety',
+      sublabel: 'Vishwas aur Suraksha',
+      icon: '🛡️',
+    },
+  ],
+  testimonials: [
+    {
+      name: 'Ramesh Kumar',
+      location: 'Kasganj',
+      text: 'Fauji Finance ne meri beti ki shaadi me bahut madad ki. Committee se time par paisa mila.',
+      rating: 5,
+    },
+    {
+      name: 'Sunita Devi',
+      location: 'Ganjdundwara',
+      text: 'Daily saving scheme bahut acchi hai. Chote chote paise jama karke bada amount ban gaya.',
+      rating: 5,
+    },
+    {
+      name: 'Vijay Singh',
+      location: 'Kasganj',
+      text: '25 saal se inke saath kaam kar raha hoon. Kabhi koi problem nahi hui. Full trust hai.',
+      rating: 5,
+    },
+  ],
+};
+
+// New content for ambassador section
+export const AMBASSADORS = {
+  title: 'Trusted by Thousands',
+  subtitle: 'Hazaron ka Bharosa',
+  description: 'Join our family of satisfied customers who trust us with their financial goals',
+  bannerImage: 'assets/generated/celebrity-banner.dim_1920x800.png',
+  portraits: [
+    {
+      image: 'assets/generated/celebrity-ambassador-1.dim_1200x1200.png',
+      alt: 'Satisfied customer testimonial',
+    },
+    {
+      image: 'assets/generated/celebrity-ambassador-2.dim_1200x1200.png',
+      alt: 'Happy customer success story',
+    },
+  ],
+  cta: {
+    text: 'Start Your Journey Today',
+    subtext: 'Aaj hi shuru karein apni financial planning',
+  },
+};

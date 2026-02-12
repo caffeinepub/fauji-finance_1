@@ -3,117 +3,205 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
-        --radius: 0.5rem;
-        
-        /* Fauji Finance Color System - Light Mode */
-        --background: 0.98 0.01 140;
-        --foreground: 0.2 0.02 140;
-        
-        --card: 1 0 0;
-        --card-foreground: 0.2 0.02 140;
-        
-        --popover: 1 0 0;
-        --popover-foreground: 0.2 0.02 140;
-        
-        /* Army Green - Primary */
-        --primary: 0.35 0.08 145;
-        --primary-foreground: 0.98 0.01 140;
-        
-        /* Dark Olive - Secondary */
-        --secondary: 0.28 0.06 140;
-        --secondary-foreground: 0.98 0.01 140;
-        
-        --muted: 0.94 0.01 140;
-        --muted-foreground: 0.5 0.02 140;
-        
-        --accent: 0.92 0.02 140;
-        --accent-foreground: 0.2 0.02 140;
-        
-        --destructive: 0.55 0.22 25;
-        --destructive-foreground: 0.98 0 0;
-        
-        --border: 0.88 0.02 140;
-        --input: 0.88 0.02 140;
-        --ring: 0.35 0.08 145;
-        
-        /* Fauji Custom Colors */
-        --fauji-dark: 0.2 0.02 140;
-        --fauji-green: 0.35 0.08 145;
-        --fauji-olive: 0.28 0.06 140;
-        --fauji-cream: 0.92 0.02 60;
-        --fauji-light: 0.96 0.01 140;
-    }
+  :root {
+    /* Enhanced Finance Color System - OKLCH */
+    --background: oklch(98% 0.01 120);
+    --foreground: oklch(20% 0.02 120);
 
-    .dark {
-        --background: 0.15 0.02 140;
-        --foreground: 0.98 0.01 140;
-        
-        --card: 0.2 0.02 140;
-        --card-foreground: 0.98 0.01 140;
-        
-        --popover: 0.18 0.02 140;
-        --popover-foreground: 0.98 0.01 140;
-        
-        --primary: 0.45 0.1 145;
-        --primary-foreground: 0.15 0.02 140;
-        
-        --secondary: 0.25 0.05 140;
-        --secondary-foreground: 0.98 0.01 140;
-        
-        --muted: 0.25 0.03 140;
-        --muted-foreground: 0.7 0.02 140;
-        
-        --accent: 0.3 0.05 140;
-        --accent-foreground: 0.98 0.01 140;
-        
-        --destructive: 0.6 0.24 25;
-        --destructive-foreground: 0.15 0.02 140;
-        
-        --border: 0.3 0.03 140;
-        --input: 0.3 0.03 140;
-        --ring: 0.45 0.1 145;
-        
-        --fauji-dark: 0.15 0.02 140;
-        --fauji-green: 0.45 0.1 145;
-        --fauji-olive: 0.35 0.07 140;
-        --fauji-cream: 0.92 0.02 60;
-        --fauji-light: 0.25 0.03 140;
-    }
+    --card: oklch(100% 0 0);
+    --card-foreground: oklch(20% 0.02 120);
 
-    * {
-        @apply border-border;
-    }
+    --popover: oklch(100% 0 0);
+    --popover-foreground: oklch(20% 0.02 120);
+
+    /* Rich Army Green - Primary */
+    --primary: oklch(42% 0.12 145);
+    --primary-foreground: oklch(98% 0.01 145);
+
+    /* Warm Gold Accent */
+    --secondary: oklch(75% 0.10 85);
+    --secondary-foreground: oklch(25% 0.02 85);
+
+    /* Muted backgrounds */
+    --muted: oklch(96% 0.01 120);
+    --muted-foreground: oklch(45% 0.02 120);
+
+    /* Accent - Deep Teal */
+    --accent: oklch(55% 0.10 180);
+    --accent-foreground: oklch(98% 0.01 180);
+
+    --destructive: oklch(58% 0.22 25);
+    --destructive-foreground: oklch(98% 0.01 25);
+
+    --border: oklch(88% 0.02 120);
+    --input: oklch(88% 0.02 120);
+    --ring: oklch(42% 0.12 145);
+
+    --radius: 0.5rem;
+
+    /* Custom Fauji Finance tokens */
+    --fauji-green: oklch(42% 0.12 145);
+    --fauji-dark: oklch(25% 0.03 145);
+    --fauji-light: oklch(95% 0.02 145);
+    --fauji-cream: oklch(92% 0.03 85);
+    --fauji-gold: oklch(75% 0.10 85);
+    --fauji-teal: oklch(55% 0.10 180);
     
-    body {
-        @apply bg-background text-foreground;
-        font-feature-settings: "rlig" 1, "calt" 1;
-    }
+    /* Success state */
+    --success: oklch(65% 0.15 145);
+    --success-foreground: oklch(98% 0.01 145);
     
-    h1, h2, h3, h4, h5, h6 {
-        @apply font-bold;
-        line-height: 1.2;
-    }
+    /* Warning state */
+    --warning: oklch(75% 0.15 75);
+    --warning-foreground: oklch(25% 0.02 75);
+  }
+
+  .dark {
+    --background: oklch(18% 0.02 145);
+    --foreground: oklch(95% 0.01 145);
+
+    --card: oklch(22% 0.02 145);
+    --card-foreground: oklch(95% 0.01 145);
+
+    --popover: oklch(22% 0.02 145);
+    --popover-foreground: oklch(95% 0.01 145);
+
+    --primary: oklch(55% 0.12 145);
+    --primary-foreground: oklch(15% 0.02 145);
+
+    --secondary: oklch(65% 0.10 85);
+    --secondary-foreground: oklch(15% 0.02 85);
+
+    --muted: oklch(25% 0.02 145);
+    --muted-foreground: oklch(70% 0.02 145);
+
+    --accent: oklch(60% 0.10 180);
+    --accent-foreground: oklch(95% 0.01 180);
+
+    --destructive: oklch(58% 0.22 25);
+    --destructive-foreground: oklch(95% 0.01 25);
+
+    --border: oklch(30% 0.02 145);
+    --input: oklch(30% 0.02 145);
+    --ring: oklch(55% 0.12 145);
+
+    /* Dark mode Fauji tokens */
+    --fauji-green: oklch(55% 0.12 145);
+    --fauji-dark: oklch(15% 0.02 145);
+    --fauji-light: oklch(25% 0.02 145);
+    --fauji-cream: oklch(85% 0.03 85);
+    --fauji-gold: oklch(70% 0.10 85);
+    --fauji-teal: oklch(60% 0.10 180);
     
-    h1 {
-        @apply text-4xl md:text-5xl lg:text-6xl;
-    }
+    --success: oklch(60% 0.15 145);
+    --success-foreground: oklch(95% 0.01 145);
     
-    h2 {
-        @apply text-3xl md:text-4xl lg:text-5xl;
-    }
-    
-    h3 {
-        @apply text-2xl md:text-3xl;
-    }
-    
-    p {
-        line-height: 1.7;
-    }
+    --warning: oklch(70% 0.15 75);
+    --warning-foreground: oklch(15% 0.02 75);
+  }
 }
 
-@layer utilities {
-    .safe-area-bottom {
-        padding-bottom: env(safe-area-inset-bottom);
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
     }
+  }
+}
+
+/* Typography enhancements */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+}
+
+/* Safe area handling for mobile devices */
+@layer utilities {
+  .safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  .safe-area-inset-top {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+}
+
+/* Reduced motion utilities */
+@layer utilities {
+  @media (prefers-reduced-motion: reduce) {
+    .motion-reduce\:transition-none {
+      transition: none !important;
+    }
+    
+    .motion-reduce\:animate-none {
+      animation: none !important;
+    }
+    
+    .motion-reduce\:transform-none {
+      transform: none !important;
+    }
+  }
+}
+
+/* Custom scrollbar styling */
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-fauji-green/50 rounded-full;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    @apply bg-fauji-green;
+  }
+}
+
+/* Gradient text utility */
+@layer utilities {
+  .gradient-text {
+    @apply bg-gradient-to-r from-fauji-green via-fauji-teal to-fauji-gold bg-clip-text text-transparent;
+  }
+}
+
+/* Enhanced shadow utilities */
+@layer utilities {
+  .shadow-glow-green {
+    box-shadow: 0 0 20px rgba(76, 111, 68, 0.3);
+  }
+  
+  .shadow-glow-gold {
+    box-shadow: 0 0 20px rgba(184, 134, 11, 0.3);
+  }
 }
