@@ -1,179 +1,141 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
-import ImageWithFallback from './ImageWithFallback';
-import { publicAssetUrl } from '@/utils/publicAssetUrl';
+import { Button } from './ui/button';
+import { Link } from '@tanstack/react-router';
+import { publicAssetUrl } from '../utils/publicAssetUrl';
+import usePrefersReducedMotion from '../hooks/usePrefersReducedMotion';
 
-interface HeroSlide {
-  image: string;
-  title: string;
-  subtitle: string;
-  description: string;
-}
+const slides = [
+  {
+    image: publicAssetUrl('/assets/generated/hero-slide-1.dim_1920x900.png'),
+    title: 'Trusted Financial Solutions',
+    subtitle: 'Building prosperity through reliable committee and savings plans',
+  },
+  {
+    image: publicAssetUrl('/assets/generated/hero-slide-2.dim_1920x900.png'),
+    title: 'Secure Your Future',
+    subtitle: 'High returns with transparent and honest service',
+  },
+  {
+    image: publicAssetUrl('/assets/generated/hero-slide-3.dim_1920x900.png'),
+    title: 'Community You Can Trust',
+    subtitle: 'Join thousands of satisfied customers building wealth together',
+  },
+];
 
-interface HeroCarouselProps {
-  slides: HeroSlide[];
-  autoAdvanceInterval?: number;
-}
-
-/**
- * Accessible hero carousel with manual controls (dots + prev/next buttons),
- * optional auto-advance that pauses on interaction, and keyboard support.
- * Respects prefers-reduced-motion by disabling auto-advance.
- */
-export default function HeroCarousel({ 
-  slides, 
-  autoAdvanceInterval = 5000 
-}: HeroCarouselProps) {
+export default function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  const goToSlide = useCallback((index: number) => {
-    setCurrentSlide(index);
-    setIsPaused(true);
-  }, []);
-
-  const goToPrevious = useCallback(() => {
-    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-    setIsPaused(true);
-  }, [slides.length]);
-
-  const goToNext = useCallback(() => {
-    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    setIsPaused(true);
-  }, [slides.length]);
-
-  // Auto-advance logic (disabled if reduced motion or paused)
   useEffect(() => {
-    if (prefersReducedMotion || isPaused || slides.length <= 1) {
-      return;
-    }
+    if (prefersReducedMotion) return;
 
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, autoAdvanceInterval);
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
 
     return () => clearInterval(interval);
-  }, [prefersReducedMotion, isPaused, slides.length, autoAdvanceInterval]);
+  }, [prefersReducedMotion]);
 
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') {
-        goToPrevious();
-      } else if (e.key === 'ArrowRight') {
-        goToNext();
-      }
-    };
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [goToPrevious, goToNext]);
+  const goToPrevious = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
 
-  const currentSlideData = slides[currentSlide];
+  const goToNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
 
   return (
-    <div 
-      className="relative w-full overflow-hidden"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      role="region"
-      aria-label="Hero carousel"
-    >
+    <section className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden bg-muted">
       {/* Slides */}
-      <div className="relative h-[550px] md:h-[650px] lg:h-[750px]">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-            } motion-reduce:transition-none`}
-            aria-hidden={index !== currentSlide}
-          >
-            <div className="relative h-full w-full">
-              <ImageWithFallback
-                src={publicAssetUrl(slide.image)}
-                alt={slide.title}
-                className="w-full h-full object-cover"
-              />
-              {/* Enhanced overlay gradient for better text readability */}
-              <div className="absolute inset-0 bg-gradient-to-b from-fauji-dark/80 via-fauji-dark/70 to-fauji-dark/90" />
-            </div>
-          </div>
-        ))}
+      {slides.map((slide, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            index === currentSlide ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <img
+            src={slide.image}
+            alt={slide.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+        </div>
+      ))}
 
-        {/* Content overlay - Improved positioning */}
-        <div className="absolute inset-0 z-20 flex items-center justify-center pt-8 pb-48 md:pb-56">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center text-white">
-              <h1 
-                className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight animate-fade-down motion-reduce:animate-none"
-                key={`title-${currentSlide}`}
+      {/* Content Overlay */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center text-white space-y-6">
+            {slides.map((slide, index) => (
+              <div
+                key={index}
+                className={`transition-all duration-1000 ${
+                  index === currentSlide
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-4 absolute inset-0'
+                }`}
               >
-                {currentSlideData.title}
-              </h1>
-              <p 
-                className="text-xl md:text-3xl text-fauji-cream mb-4 animate-fade-in motion-reduce:animate-none"
-                key={`subtitle-${currentSlide}`}
-                style={{ animationDelay: '150ms' }}
-              >
-                {currentSlideData.subtitle}
-              </p>
-              <p 
-                className="text-lg md:text-xl mb-8 animate-fade-up motion-reduce:animate-none"
-                key={`desc-${currentSlide}`}
-                style={{ animationDelay: '300ms' }}
-              >
-                {currentSlideData.description}
-              </p>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-down">
+                  {slide.title}
+                </h2>
+                <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white/90 animate-fade-up">
+                  {slide.subtitle}
+                </p>
+              </div>
+            ))}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-up">
+              <Link to="/calculator">
+                <Button size="lg" className="text-lg px-8 py-6 hover:scale-105 transition-transform">
+                  Calculate Your Returns
+                </Button>
+              </Link>
+              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" variant="outline" className="text-lg px-8 py-6 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 hover:scale-105 transition-transform">
+                  Contact Us on WhatsApp
+                </Button>
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Navigation Controls */}
-      {slides.length > 1 && (
-        <>
-          {/* Previous/Next Buttons */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 bg-white/20 hover:bg-white/40 text-white backdrop-blur-sm h-14 w-14 rounded-full transition-all duration-300 hover:scale-110 motion-reduce:hover:scale-100"
-            onClick={goToPrevious}
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className="h-8 w-8" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 bg-white/20 hover:bg-white/40 text-white backdrop-blur-sm h-14 w-14 rounded-full transition-all duration-300 hover:scale-110 motion-reduce:hover:scale-100"
-            onClick={goToNext}
-            aria-label="Next slide"
-          >
-            <ChevronRight className="h-8 w-8" />
-          </Button>
+      {/* Navigation Arrows */}
+      <button
+        onClick={goToPrevious}
+        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 hover:scale-110 transition-all"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft className="h-6 w-6" />
+      </button>
+      <button
+        onClick={goToNext}
+        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 hover:scale-110 transition-all"
+        aria-label="Next slide"
+      >
+        <ChevronRight className="h-6 w-6" />
+      </button>
 
-          {/* Dot Indicators - Improved positioning */}
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex gap-3">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`h-3 w-3 rounded-full transition-all duration-300 ${
-                  index === currentSlide 
-                    ? 'bg-white w-10 shadow-lg' 
-                    : 'bg-white/50 hover:bg-white/75'
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-                aria-current={index === currentSlide}
-              />
-            ))}
-          </div>
-        </>
-      )}
-    </div>
+      {/* Dots Indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all ${
+              index === currentSlide
+                ? 'bg-white w-8'
+                : 'bg-white/50 hover:bg-white/75'
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+    </section>
   );
 }

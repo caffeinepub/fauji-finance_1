@@ -1,161 +1,75 @@
+import { Link } from '@tanstack/react-router';
 import { ArrowRight } from 'lucide-react';
-import { SiWhatsapp } from 'react-icons/si';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import SectionHeading from './SectionHeading';
-import ImageWithFallback from './ImageWithFallback';
-import { publicAssetUrl } from '@/utils/publicAssetUrl';
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { Button } from './ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { publicAssetUrl } from '../utils/publicAssetUrl';
 import RevealOnScroll from './RevealOnScroll';
-import { CONTACT } from '@/content/faujiFinanceContent';
 
-interface ServiceCard {
-  title: string;
-  titleHindi: string;
-  description: string;
-  image: string;
-  icon: string;
-  ctaText: string;
-  ctaLink: string;
-  ctaType: 'internal' | 'whatsapp';
-}
-
-const services: ServiceCard[] = [
+const services = [
   {
-    title: 'Committee',
-    titleHindi: 'कमेटी',
-    description: 'Join our trusted committee system - save regularly and get lump sum when you need it',
-    image: 'assets/generated/service-committee.dim_800x600.png',
-    icon: '👥',
-    ctaText: 'View Services',
-    ctaLink: '/services',
-    ctaType: 'internal',
+    title: 'Committee Plans',
+    description: 'Join our trusted committee system for disciplined savings and guaranteed returns',
+    image: publicAssetUrl('/assets/generated/service-committee.dim_800x600.png'),
+    link: '/calculator',
   },
   {
-    title: 'Daily Saving',
-    titleHindi: 'रोज़ाना बचत',
-    description: 'Save small amounts daily and build a secure financial future with guaranteed returns',
-    image: 'assets/generated/service-saving.dim_800x600.png',
-    icon: '💰',
-    ctaText: 'WhatsApp Now',
-    ctaLink: `https://wa.me/91${CONTACT.whatsapp}?text=Hi, I want to know about Daily Saving scheme`,
-    ctaType: 'whatsapp',
+    title: 'Savings Accounts',
+    description: 'Secure your money with high-interest savings plans tailored to your needs',
+    image: publicAssetUrl('/assets/generated/service-saving.dim_800x600.png'),
+    link: '/calculator',
   },
   {
-    title: 'Interest (Byaj)',
-    titleHindi: 'ब्याज',
-    description: 'Get competitive interest rates on your deposits - transparent and reliable',
-    image: 'assets/generated/service-interest.dim_800x600.png',
-    icon: '📈',
-    ctaText: 'WhatsApp Now',
-    ctaLink: `https://wa.me/91${CONTACT.whatsapp}?text=Hi, I want to know about Interest rates`,
-    ctaType: 'whatsapp',
+    title: 'Interest Loans',
+    description: 'Quick and transparent loan services with competitive interest rates',
+    image: publicAssetUrl('/assets/generated/service-interest.dim_800x600.png'),
+    link: 'https://wa.me/919876543210',
   },
 ];
 
-/**
- * Interactive Services Section with 3 AI-illustrated service cards.
- * Features subtle animations, fully clickable cards, and clear CTAs.
- * Respects prefers-reduced-motion for accessibility.
- */
 export default function InteractiveServicesSection() {
-  const prefersReducedMotion = usePrefersReducedMotion();
-
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-fauji-light/30 relative overflow-hidden">
-      {/* Decorative background pattern */}
-      <div
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: `url(${publicAssetUrl('assets/generated/premium-pattern.dim_1200x1200.png')})`,
-          backgroundSize: '300px 300px',
-          backgroundRepeat: 'repeat',
-        }}
-      />
-
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-16 md:py-24 bg-background">
+      <div className="container mx-auto px-4">
         <RevealOnScroll>
-          <SectionHeading
-            title="Our Interactive Services"
-            subtitle="Hamari Seva"
-            description="Choose the service that fits your financial goals"
-          />
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Our Services</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Comprehensive financial solutions designed to help you achieve your goals
+            </p>
+          </div>
         </RevealOnScroll>
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {services.map((service, index) => (
             <RevealOnScroll key={index} delay={index * 100}>
-              <Card 
-                className="group relative overflow-hidden border-fauji-green/30 bg-white shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 motion-reduce:hover:translate-y-0 h-full"
-              >
-                <CardContent className="p-0 h-full flex flex-col">
-                  {/* Image Section with Icon Overlay */}
-                  <div className="relative h-56 overflow-hidden">
-                    <ImageWithFallback
-                      src={publicAssetUrl(service.image)}
-                      alt={service.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 motion-reduce:group-hover:scale-100"
-                    />
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-fauji-dark/60 to-transparent" />
-                    
-                    {/* Animated icon badge */}
-                    <div 
-                      className={`absolute top-4 right-4 bg-white rounded-full p-3 shadow-lg ${
-                        !prefersReducedMotion ? 'animate-pulse-subtle' : ''
-                      }`}
-                    >
-                      <span className="text-3xl">{service.icon}</span>
-                    </div>
-                  </div>
-
-                  {/* Content Section */}
-                  <div className="p-6 flex-1 flex flex-col">
-                    <div className="mb-4">
-                      <h3 className="text-2xl font-bold text-fauji-dark mb-1">
-                        {service.title}
-                      </h3>
-                      <p className="text-fauji-green font-semibold text-lg">
-                        {service.titleHindi}
-                      </p>
-                    </div>
-                    
-                    <p className="text-gray-700 mb-6 flex-1 leading-relaxed">
-                      {service.description}
-                    </p>
-
-                    {/* CTA Button */}
-                    <Button
-                      asChild
-                      size="lg"
-                      className={`w-full font-bold transition-all duration-300 ${
-                        service.ctaType === 'whatsapp'
-                          ? 'bg-[#25D366] hover:bg-[#20BA5A] text-white'
-                          : 'bg-fauji-green hover:bg-fauji-green/90 text-white'
-                      } group-hover:shadow-lg`}
-                    >
-                      {service.ctaType === 'internal' ? (
-                        <a href={service.ctaLink} className="flex items-center justify-center gap-2">
-                          <span>{service.ctaText}</span>
-                          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0" />
-                        </a>
-                      ) : (
-                        <a
-                          href={service.ctaLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2"
-                        >
-                          <SiWhatsapp className="h-5 w-5" />
-                          <span>{service.ctaText}</span>
-                        </a>
-                      )}
-                    </Button>
-                  </div>
-
-                  {/* Decorative shimmer effect on hover */}
-                  {!prefersReducedMotion && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
+              <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                </div>
+                <CardHeader>
+                  <CardTitle className="text-xl">{service.title}</CardTitle>
+                  <CardDescription className="text-base">{service.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {service.link.startsWith('http') ? (
+                    <a href={service.link} target="_blank" rel="noopener noreferrer">
+                      <Button className="w-full group/btn">
+                        Learn More
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
+                    </a>
+                  ) : (
+                    <Link to={service.link}>
+                      <Button className="w-full group/btn">
+                        Learn More
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
                   )}
                 </CardContent>
               </Card>

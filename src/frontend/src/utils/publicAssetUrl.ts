@@ -1,35 +1,21 @@
 /**
- * Builds a public asset URL by prefixing the path with the runtime base path.
- * This ensures assets load correctly when the app is deployed under a non-root path.
- * 
- * Self-check: This utility is critical for IC deployments with non-root hosting paths.
- * It normalizes both the base path and asset path to prevent double-slashes and
- * ensures proper URL resolution in production builds.
- * 
- * @param path - The asset path relative to the public directory (e.g., "assets/gallery/image.jpg")
- * @returns The full URL with the correct base path
+ * Helper function to build public asset URLs with proper base path handling
+ * for IC deployments and local development
  */
 export function publicAssetUrl(path: string): string {
-  // Handle already-absolute URLs (http://, https://, //)
-  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('//')) {
+  // If path is already absolute, return as-is
+  if (path.startsWith('http://') || path.startsWith('https://')) {
     return path;
   }
+
+  // Get base URL from environment
+  const baseUrl = import.meta.env.BASE_URL || '/';
   
-  const basePath = import.meta.env.BASE_URL || '/';
-  
-  // Normalize the asset path by removing leading slash if present
+  // Normalize path (remove leading slash if present)
   const normalizedPath = path.startsWith('/') ? path.slice(1) : path;
   
-  // Normalize base path: ensure it starts with / and ends with /
-  let normalizedBase = basePath;
-  if (!normalizedBase.startsWith('/')) {
-    normalizedBase = '/' + normalizedBase;
-  }
-  if (!normalizedBase.endsWith('/')) {
-    normalizedBase = normalizedBase + '/';
-  }
+  // Normalize base URL (ensure trailing slash)
+  const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
   
-  // Combine and remove any double slashes except after protocol
-  const combined = `${normalizedBase}${normalizedPath}`;
-  return combined.replace(/([^:]\/)\/+/g, '$1');
+  return `${normalizedBase}${normalizedPath}`;
 }

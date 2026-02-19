@@ -1,8 +1,7 @@
 import { RouterProvider, createRouter, createRoute, createRootRoute } from '@tanstack/react-router';
 import SiteLayout from './components/SiteLayout';
 import HomePage from './pages/HomePage';
-import ServicesPage from './pages/ServicesPage';
-import ContactPage from './pages/ContactPage';
+import CalculatorPage from './pages/CalculatorPage';
 
 const rootRoute = createRootRoute({
   component: SiteLayout,
@@ -14,23 +13,13 @@ const indexRoute = createRoute({
   component: HomePage,
 });
 
-const servicesRoute = createRoute({
+const calculatorRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/services',
-  component: ServicesPage,
+  path: '/calculator',
+  component: CalculatorPage,
 });
 
-const contactRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/contact',
-  component: ContactPage,
-});
-
-const routeTree = rootRoute.addChildren([
-  indexRoute,
-  servicesRoute,
-  contactRoute,
-]);
+const routeTree = rootRoute.addChildren([indexRoute, calculatorRoute]);
 
 // Normalize basepath for consistent routing across IC deployments
 function normalizeBasePath(basePath: string): string {

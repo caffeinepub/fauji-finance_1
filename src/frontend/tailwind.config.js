@@ -62,6 +62,9 @@ export default {
         'fauji-cream': 'oklch(var(--fauji-cream))',
         'fauji-gold': 'oklch(var(--fauji-gold))',
         'fauji-teal': 'oklch(var(--fauji-teal))',
+        'fauji-coral': 'oklch(var(--fauji-coral))',
+        'fauji-purple': 'oklch(var(--fauji-purple))',
+        'fauji-blue': 'oklch(var(--fauji-blue))',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -147,10 +150,10 @@ export default {
         },
         "glow": {
           "0%, 100%": { 
-            boxShadow: "0 0 10px rgba(76, 111, 68, 0.3)"
+            boxShadow: "0 0 10px rgba(76, 175, 80, 0.3)"
           },
           "50%": { 
-            boxShadow: "0 0 25px rgba(76, 111, 68, 0.6)"
+            boxShadow: "0 0 25px rgba(76, 175, 80, 0.6)"
           },
         },
       },

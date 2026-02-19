@@ -1,57 +1,40 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Finance/fintech marketing website/app draft that needs a rebuild/redeploy with richer content, improved homepage design (colors/animations/layout), and additional sections showcasing customer savings/profit examples.",
+  "summary": "New project",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Photo-style portrait of a non-identifiable finance brand ambassador in a premium suit, army-green + cream color grading (celebrity-ambassador-1.dim_1200x1200.png)\n- Photo-style portrait of a non-identifiable finance brand ambassador, confident pose, studio lighting, army-green theme (celebrity-ambassador-2.dim_1200x1200.png)\n- Wide photo-style banner with 2–3 non-identifiable finance ambassadors, modern fintech aesthetic, army-green palette (celebrity-banner.dim_1920x800.png)",
   "existing_features": [
     {
-      "id": "feature-improve-the-home-page-visual-theme-so-it-is-not-overly-light-increase-contrast-introduce-a-cohesive-finance-army-green-palette-backgrounds-cards-headings-buttons-and-ensure-consistent-typography-and-spacing-across-sections",
-      "title": "Improve the Home page visual theme so it is not overly light: increase contrast, introduce a cohesive finance/army-green palette (backgrounds, cards, headings, buttons), and ensure consistent typography and spacing across sections.",
+      "id": "feature-replace-the-years-input-field-in-the-interest-calculator-form-with-a-days-input-field-that-accepts-values-from-1-to-365-days",
+      "title": "Replace the 'years' input field in the interest calculator form with a 'days' input field that accepts values from 1 to 365 days",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-fix-layout-collisions-overlaps-on-the-home-page-by-auditing-responsive-breakpoints-and-spacing-especially-hero-overlays-section-transitions-and-card-grids-so-content-never-visually-collides-at-common-viewport-sizes",
-      "title": "Fix layout collisions/overlaps on the Home page by auditing responsive breakpoints and spacing (especially hero overlays, section transitions, and card grids) so content never visually collides at common viewport sizes.",
+      "id": "feature-update-the-frontend-interest-calculation-logic-to-convert-days-to-a-fraction-of-a-year-days-365-before-performing-the-calculation",
+      "title": "Update the frontend interest calculation logic to convert days to a fraction of a year (days/365) before performing the calculation",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-enhance-homepage-animations-to-feel-more-like-modern-finance-websites-while-remaining-lightweight-add-subtle-section-transitions-hover-micro-interactions-and-where-appropriate-animated-accent-elements-all-animations-must-respect-prefers-reduced-motion",
-      "title": "Enhance homepage animations to feel more like modern finance websites while remaining lightweight: add subtle section transitions, hover micro-interactions, and (where appropriate) animated accent elements; all animations must respect prefers-reduced-motion.",
+      "id": "feature-update-the-results-display-to-show-the-number-of-days-used-in-the-calculation-alongside-the-principal-interest-and-total",
+      "title": "Update the results display to show the number of days used in the calculation alongside the principal, interest, and total",
       "reqIds": [
         "REQ-3"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-additional-home-page-content-sections-beyond-the-current-limited-set-inspired-by-finance-marketing-sites-including-at-minimum-1-a-customer-savings-profit-examples-section-with-multiple-example-cards-and-figures-and-2-one-additional-credibility-oriented-section-e-g-testimonials-slider-faqs-or-stats-metrics",
-      "title": "Add additional Home page content sections beyond the current limited set, inspired by finance marketing sites, including at minimum: (1) a customer savings/profit examples section with multiple example cards and figures, and (2) one additional credibility-oriented section (e.g., testimonials slider, FAQs, or stats/metrics).",
+      "id": "feature-update-the-validation-utility-to-replace-year-validation-0-30-with-days-validation-1-365",
+      "title": "Update the validation utility to replace year validation (0-30) with days validation (1-365)",
       "reqIds": [
         "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-finance-website-style-celebrity-photo-content-using-ai-generated-non-identifiable-celebrity-style-brand-ambassador-imagery-do-not-use-real-person-likenesses-and-integrate-these-images-into-one-or-more-home-page-sections-in-a-visually-coherent-way",
-      "title": "Add finance-website-style 'celebrity' photo content using AI-generated, non-identifiable celebrity-style/brand-ambassador imagery (do not use real person likenesses) and integrate these images into one or more Home page sections in a visually coherent way.",
-      "reqIds": [
-        "REQ-5"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-structured-content-source-s-used-by-the-home-page-so-the-new-sections-profit-savings-examples-and-additional-credibility-content-are-content-driven-easy-to-edit-rather-than-hardcoded-in-multiple-places",
-      "title": "Update the structured content source(s) used by the Home page so the new sections (profit/savings examples and additional credibility content) are content-driven (easy to edit) rather than hardcoded in multiple places.",
-      "reqIds": [
-        "REQ-6"
       ],
       "version": 1
     }
@@ -59,43 +42,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Rebuild/redeploy the expired draft app",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Add more data and features, including customer profit/savings examples",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-3",
-      "summary": "Redesign front page with proper color palette and improved visual contrast",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-4",
-      "summary": "Add animations/interactions while preventing layout collisions/overlaps",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-5",
-      "summary": "Add celebrity photos/imagery (finance-website style inspiration)",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-6",
-      "summary": "Expand homepage content beyond the current three sections (add a few more sections)",
+      "summary": "Limit interest calculator to maximum 1 year in days form",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
-  "projectName": "Enhance homepage colors, layout safety, animations, and add finance-style photo sections",
+  "projectName": "Fauji Finance",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

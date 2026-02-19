@@ -90,9 +90,42 @@ export class ExternalBlob {
     }
 }
 export interface backendInterface {
+    calculateSimpleInterestOverMonth(principal: number): Promise<number>;
+    /**
+     * / Calculates simple interest over 12 months, with a tiered interest rate scheme.
+     */
+    calculateSimpleInterestOverYear(principal: number): Promise<number>;
 }
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
+    async calculateSimpleInterestOverMonth(arg0: number): Promise<number> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.calculateSimpleInterestOverMonth(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.calculateSimpleInterestOverMonth(arg0);
+            return result;
+        }
+    }
+    async calculateSimpleInterestOverYear(arg0: number): Promise<number> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.calculateSimpleInterestOverYear(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.calculateSimpleInterestOverYear(arg0);
+            return result;
+        }
+    }
 }
 export interface CreateActorOptions {
     agent?: Agent;

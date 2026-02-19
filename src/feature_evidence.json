@@ -2,12 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-improve-the-home-page-visual-theme-so-it-is-not-overly-light-increase-contrast-introduce-a-cohesive-finance-army-green-palette-backgrounds-cards-headings-buttons-and-ensure-consistent-typography-and-spacing-across-sections",
-      "featureTitle": "Improve the Home page visual theme so it is not overly light: increase contrast, introduce a cohesive finance/army-green palette (backgrounds, cards, headings, buttons), and ensure consistent typography and spacing across sections.",
+      "featureId": "feature-replace-the-years-input-field-in-the-interest-calculator-form-with-a-days-input-field-that-accepts-values-from-1-to-365-days",
+      "featureTitle": "Replace the 'years' input field in the interest calculator form with a 'days' input field that accepts values from 1 to 365 days",
       "files": [
-        "frontend/src/index.css",
-        "frontend/src/pages/HomePage.tsx",
-        "frontend/tailwind.config.js"
+        "frontend/src/components/calculator/InterestCalculatorForm.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -22,14 +20,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-fix-layout-collisions-overlaps-on-the-home-page-by-auditing-responsive-breakpoints-and-spacing-especially-hero-overlays-section-transitions-and-card-grids-so-content-never-visually-collides-at-common-viewport-sizes",
-      "featureTitle": "Fix layout collisions/overlaps on the Home page by auditing responsive breakpoints and spacing (especially hero overlays, section transitions, and card grids) so content never visually collides at common viewport sizes.",
+      "featureId": "feature-update-the-frontend-interest-calculation-logic-to-convert-days-to-a-fraction-of-a-year-days-365-before-performing-the-calculation",
+      "featureTitle": "Update the frontend interest calculation logic to convert days to a fraction of a year (days/365) before performing the calculation",
       "files": [
-        "frontend/src/components/HeroCarousel.tsx",
-        "frontend/src/components/SiteLayout.tsx",
-        "frontend/src/components/StickyContactBar.tsx",
-        "frontend/src/index.css",
-        "frontend/src/pages/HomePage.tsx"
+        "frontend/src/hooks/useCalculateInterest.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -44,13 +38,11 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-enhance-homepage-animations-to-feel-more-like-modern-finance-websites-while-remaining-lightweight-add-subtle-section-transitions-hover-micro-interactions-and-where-appropriate-animated-accent-elements-all-animations-must-respect-prefers-reduced-motion",
-      "featureTitle": "Enhance homepage animations to feel more like modern finance websites while remaining lightweight: add subtle section transitions, hover micro-interactions, and (where appropriate) animated accent elements; all animations must respect prefers-reduced-motion.",
+      "featureId": "feature-update-the-results-display-to-show-the-number-of-days-used-in-the-calculation-alongside-the-principal-interest-and-total",
+      "featureTitle": "Update the results display to show the number of days used in the calculation alongside the principal, interest, and total",
       "files": [
-        "frontend/src/components/HeroCarousel.tsx",
-        "frontend/src/components/RevealOnScroll.tsx",
-        "frontend/src/pages/HomePage.tsx",
-        "frontend/tailwind.config.js"
+        "frontend/src/components/calculator/ResultsDisplay.tsx",
+        "frontend/src/hooks/useCalculateInterest.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -65,12 +57,11 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-additional-home-page-content-sections-beyond-the-current-limited-set-inspired-by-finance-marketing-sites-including-at-minimum-1-a-customer-savings-profit-examples-section-with-multiple-example-cards-and-figures-and-2-one-additional-credibility-oriented-section-e-g-testimonials-slider-faqs-or-stats-metrics",
-      "featureTitle": "Add additional Home page content sections beyond the current limited set, inspired by finance marketing sites, including at minimum: (1) a customer savings/profit examples section with multiple example cards and figures, and (2) one additional credibility-oriented section (e.g., testimonials slider, FAQs, or stats/metrics).",
+      "featureId": "feature-update-the-validation-utility-to-replace-year-validation-0-30-with-days-validation-1-365",
+      "featureTitle": "Update the validation utility to replace year validation (0-30) with days validation (1-365)",
       "files": [
-        "frontend/src/components/home/ProfitExamplesSection.tsx",
-        "frontend/src/content/faujiFinanceContent.ts",
-        "frontend/src/pages/HomePage.tsx"
+        "frontend/src/components/calculator/InterestCalculatorForm.tsx",
+        "frontend/src/utils/validateInput.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -81,44 +72,6 @@
       ],
       "testIds": [
         "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-finance-website-style-celebrity-photo-content-using-ai-generated-non-identifiable-celebrity-style-brand-ambassador-imagery-do-not-use-real-person-likenesses-and-integrate-these-images-into-one-or-more-home-page-sections-in-a-visually-coherent-way",
-      "featureTitle": "Add finance-website-style 'celebrity' photo content using AI-generated, non-identifiable celebrity-style/brand-ambassador imagery (do not use real person likenesses) and integrate these images into one or more Home page sections in a visually coherent way.",
-      "files": [
-        "frontend/src/pages/HomePage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-the-structured-content-source-s-used-by-the-home-page-so-the-new-sections-profit-savings-examples-and-additional-credibility-content-are-content-driven-easy-to-edit-rather-than-hardcoded-in-multiple-places",
-      "featureTitle": "Update the structured content source(s) used by the Home page so the new sections (profit/savings examples and additional credibility content) are content-driven (easy to edit) rather than hardcoded in multiple places.",
-      "files": [
-        "frontend/src/components/home/ProfitExamplesSection.tsx",
-        "frontend/src/content/faujiFinanceContent.ts",
-        "frontend/src/pages/HomePage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-6"
       ],
       "confidence": "high"
     }

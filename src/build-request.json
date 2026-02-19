@@ -1,148 +1,87 @@
 {
   "kind": "build_request",
-  "title": "Enhance homepage colors, layout safety, animations, and add finance-style photo sections",
+  "title": "Limit interest calculator to 1 year maximum using days input",
+  "projectName": "Fauji Finance",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Improve the Home page visual theme so it is not overly light: increase contrast, introduce a cohesive finance/army-green palette (backgrounds, cards, headings, buttons), and ensure consistent typography and spacing across sections.",
+      "text": "Replace the 'years' input field in the interest calculator form with a 'days' input field that accepts values from 1 to 365 days",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-8"
+          "msg-latest"
         ],
         "quotes": [
-          "front page is very light add proper colors"
+          "interest calc me bs 1 year bala rakh days ke form me hi"
         ]
       },
       "acceptanceCriteria": [
-        "Home page sections have clearly differentiated background tones (e.g., alternating subtle tints) and readable text contrast on all cards/sections.",
-        "Primary/secondary CTA buttons have clear hover/focus states and remain readable on light and dark backgrounds.",
-        "No user-facing text is changed to non-English as part of this redesign (English only for new UI copy)."
+        "Form displays 'Days' label instead of 'Years'",
+        "Input accepts only integer values between 1 and 365",
+        "Validation error appears if user enters a value outside this range",
+        "Placeholder text shows example like '90' or '180'"
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Fix layout collisions/overlaps on the Home page by auditing responsive breakpoints and spacing (especially hero overlays, section transitions, and card grids) so content never visually collides at common viewport sizes.",
+      "text": "Update the frontend interest calculation logic to convert days to a fraction of a year (days/365) before performing the calculation",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-8"
-        ],
-        "quotes": [
-          "add proper colors and animations so it will not collide with each other"
+          "msg-latest"
         ]
       },
       "acceptanceCriteria": [
-        "At widths 360px, 768px, 1024px, and 1440px, no text, buttons, or images overlap each other (including the hero CTA overlay and carousel).",
-        "All sections maintain adequate vertical spacing between headings, cards, and media; no clipped content occurs.",
-        "Sticky/mobile UI (if present) does not cover critical Home page content."
+        "Calculation uses formula: principal × rate × (days/365)",
+        "Results display correctly for any valid days input",
+        "Precision is maintained for partial year calculations"
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Enhance homepage animations to feel more like modern finance websites while remaining lightweight: add subtle section transitions, hover micro-interactions, and (where appropriate) animated accent elements; all animations must respect prefers-reduced-motion.",
+      "text": "Update the results display to show the number of days used in the calculation alongside the principal, interest, and total",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-8"
-        ],
-        "quotes": [
-          "add proper colors and animations",
-          "take example of other finance websites"
+          "msg-latest"
         ]
       },
       "acceptanceCriteria": [
-        "Animations remain smooth and subtle (no large distracting motion) and are consistent across sections.",
-        "When the OS setting prefers-reduced-motion is enabled, auto-advancing and motion-heavy effects are disabled/reduced while content remains fully accessible.",
-        "Interactive elements (cards/buttons) show clear hover and focus feedback without layout shift."
+        "Results show 'Days: [number]' in the display",
+        "Days value matches the user's input",
+        "Display formatting is consistent with existing result fields"
       ]
     },
     {
       "id": "REQ-4",
-      "text": "Add additional Home page content sections beyond the current limited set, inspired by finance marketing sites, including at minimum: (1) a customer savings/profit examples section with multiple example cards and figures, and (2) one additional credibility-oriented section (e.g., testimonials slider, FAQs, or stats/metrics).",
+      "text": "Update the validation utility to replace year validation (0-30) with days validation (1-365)",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-8"
-        ],
-        "quotes": [
-          "only three home contant add few more",
-          "add more data and features profits to custoners example of saving and all"
+          "msg-latest"
         ]
       },
       "acceptanceCriteria": [
-        "Home page includes a dedicated section that shows multiple (3+) example profit/savings scenarios in a clear card layout.",
-        "Home page includes at least one additional section chosen from testimonials, FAQs, or stats/metrics, with consistent styling and spacing.",
-        "All new sections are responsive and do not create overlap/collision issues."
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Add finance-website-style 'celebrity' photo content using AI-generated, non-identifiable celebrity-style/brand-ambassador imagery (do not use real person likenesses) and integrate these images into one or more Home page sections in a visually coherent way.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-8"
-        ],
-        "quotes": [
-          "add celebrity photos if u can"
-        ]
-      },
-      "acceptanceCriteria": [
-        "New AI-generated photo-style images are added as static assets under frontend/public/assets/generated and rendered on the Home page.",
-        "Images are clearly non-identifiable (no real celebrity likeness) and match the site’s color theme.",
-        "Images load via existing public asset URL handling and display a graceful fallback on error (using the existing image component pattern)."
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "text": "Update the structured content source(s) used by the Home page so the new sections (profit/savings examples and additional credibility content) are content-driven (easy to edit) rather than hardcoded in multiple places.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-8"
-        ],
-        "quotes": [
-          "add few more"
-        ]
-      },
-      "acceptanceCriteria": [
-        "New Home page sections pull their titles/body/items from the existing content module pattern (e.g., frontend/src/content/faujiFinanceContent.ts).",
-        "No duplicated content constants are introduced in page components when a centralized content module is available.",
-        "The Home page renders successfully with the expanded content set."
+        "validateInput.ts checks for days range instead of years",
+        "Error messages reference 'days' terminology",
+        "Minimum value is 1 day, maximum is 365 days"
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/components/ui (read-only components must be composed, not edited).",
-    "Do not edit immutable frontend hook/bootstrap files (e.g., frontend/src/main.tsx, frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts).",
-    "Keep the backend as a single Motoko actor; no additional backend services or databases."
+    "Do not modify the backend calculation logic in main.mo",
+    "Maintain existing currency formatting and display patterns",
+    "Keep the principal amount validation unchanged (0-10M range)"
   ],
   "nonGoals": [
-    "Implementing real celebrity integrations, scraping, or using copyrighted celebrity photos.",
-    "Adding third-party auth providers beyond Internet Identity.",
-    "Adding real-time features (WebSockets/chat/push notifications).",
-    "Building a complex admin CMS; only lightweight content-constant updates are in scope."
+    "Adding multi-year calculation support",
+    "Changing the backend interest calculation methods",
+    "Modifying the overall calculator page layout or styling",
+    "Adding date picker or calendar UI components"
   ],
   "imageRequirements": {
-    "required": [
-      "Photo-style portrait of a non-identifiable finance brand ambassador in a premium suit, army-green + cream color grading (celebrity-ambassador-1.dim_1200x1200.png)",
-      "Photo-style portrait of a non-identifiable finance brand ambassador, confident pose, studio lighting, army-green theme (celebrity-ambassador-2.dim_1200x1200.png)",
-      "Wide photo-style banner with 2–3 non-identifiable finance ambassadors, modern fintech aesthetic, army-green palette (celebrity-banner.dim_1920x800.png)"
-    ],
+    "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [
-      "Use English for user-facing text"
-    ],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

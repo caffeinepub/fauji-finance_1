@@ -1,119 +1,123 @@
-import { Users, Shield, TrendingUp } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import ImageWithFallback from '@/components/ImageWithFallback';
-import RevealOnScroll from '@/components/RevealOnScroll';
-import { AMBASSADORS, CONTACT } from '@/content/faujiFinanceContent';
-import { publicAssetUrl } from '@/utils/publicAssetUrl';
-import { SiWhatsapp } from 'react-icons/si';
+import { Shield, Users, TrendingUp } from 'lucide-react';
+import { Button } from '../ui/button';
+import { publicAssetUrl } from '../../utils/publicAssetUrl';
+import RevealOnScroll from '../RevealOnScroll';
+
+const ambassadors = [
+  {
+    name: 'Mohit Yadav',
+    image: publicAssetUrl('/assets/gallery/mohit.jpeg'),
+  },
+  {
+    name: 'Rajvir Singh Yadav',
+    image: publicAssetUrl('/assets/gallery/rajvirsinghyadav.jpeg'),
+  },
+  {
+    name: 'Shekhar Yadav',
+    image: publicAssetUrl('/assets/gallery/shekhar.jpeg'),
+  },
+];
+
+const trustIndicators = [
+  {
+    icon: Shield,
+    text: 'Verified & Trusted',
+  },
+  {
+    icon: Users,
+    text: 'Community Leaders',
+  },
+  {
+    icon: TrendingUp,
+    text: 'Proven Track Record',
+  },
+];
 
 export default function AmbassadorSection() {
   return (
-    <section className="py-20 bg-gradient-to-br from-fauji-dark via-fauji-green to-fauji-teal text-white relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-10">
-        <div className="absolute top-10 right-10 w-64 h-64 bg-white rounded-full blur-3xl" />
-        <div className="absolute bottom-10 left-10 w-96 h-96 bg-fauji-gold rounded-full blur-3xl" />
+    <section id="contact" className="py-16 md:py-24 bg-gradient-to-br from-primary/10 via-accent/5 to-background relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <RevealOnScroll>
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              {AMBASSADORS.title}
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+              Trusted by Community Leaders
             </h2>
-            <p className="text-2xl text-fauji-cream mb-3">
-              {AMBASSADORS.subtitle}
-            </p>
-            <p className="text-lg text-white/90 max-w-3xl mx-auto">
-              {AMBASSADORS.description}
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Meet the people who have built their success with Fauji Finance
             </p>
           </div>
         </RevealOnScroll>
 
-        {/* Main banner image */}
-        <RevealOnScroll delay={100}>
-          <div className="max-w-6xl mx-auto mb-12 rounded-2xl overflow-hidden shadow-2xl">
-            <ImageWithFallback
-              src={publicAssetUrl(AMBASSADORS.bannerImage)}
-              alt="Trusted by thousands of customers"
-              className="w-full h-auto"
+        {/* Banner Image */}
+        <RevealOnScroll>
+          <div className="relative rounded-2xl overflow-hidden mb-12 max-w-4xl mx-auto">
+            <img
+              src={publicAssetUrl('/assets/generated/celebrity-banner.dim_1920x800.png')}
+              alt="Community Leaders"
+              className="w-full h-64 md:h-96 object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
+              <h3 className="text-2xl md:text-3xl font-bold mb-2">
+                Join Our Success Story
+              </h3>
+              <p className="text-white/90 text-lg">
+                Building wealth together, one investment at a time
+              </p>
+            </div>
           </div>
         </RevealOnScroll>
 
-        {/* Portrait grid with trust indicators */}
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {AMBASSADORS.portraits.map((portrait, index) => (
-            <RevealOnScroll key={index} delay={200 + index * 100}>
-              <Card className="group border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:border-white/40 transition-all duration-500 hover:-translate-y-2 motion-reduce:hover:translate-y-0 overflow-hidden">
-                <CardContent className="p-0">
-                  <div className="aspect-square overflow-hidden">
-                    <ImageWithFallback
-                      src={publicAssetUrl(portrait.image)}
-                      alt={portrait.alt}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 motion-reduce:group-hover:scale-100"
-                    />
-                  </div>
-                </CardContent>
-              </Card>
+        {/* Ambassador Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12 max-w-4xl mx-auto">
+          {ambassadors.map((ambassador, index) => (
+            <RevealOnScroll key={index} delay={index * 100}>
+              <div className="group relative overflow-hidden rounded-xl bg-card hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                <div className="aspect-square overflow-hidden">
+                  <img
+                    src={ambassador.image}
+                    alt={ambassador.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
+                  <p className="text-white font-semibold text-lg">{ambassador.name}</p>
+                </div>
+              </div>
             </RevealOnScroll>
           ))}
         </div>
 
-        {/* Trust indicators */}
-        <RevealOnScroll delay={400}>
-          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="flex items-center gap-4 p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
-              <Users className="h-12 w-12 text-fauji-gold flex-shrink-0" />
-              <div>
-                <p className="font-bold text-xl">500+ Families</p>
-                <p className="text-white/80 text-sm">Trust us daily</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4 p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
-              <Shield className="h-12 w-12 text-fauji-gold flex-shrink-0" />
-              <div>
-                <p className="font-bold text-xl">100% Secure</p>
-                <p className="text-white/80 text-sm">Money guaranteed</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4 p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
-              <TrendingUp className="h-12 w-12 text-fauji-gold flex-shrink-0" />
-              <div>
-                <p className="font-bold text-xl">25+ Years</p>
-                <p className="text-white/80 text-sm">Proven track record</p>
-              </div>
-            </div>
+        {/* Trust Indicators */}
+        <RevealOnScroll>
+          <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-12">
+            {trustIndicators.map((indicator, index) => {
+              const Icon = indicator.icon;
+              return (
+                <div key={index} className="flex items-center gap-3 bg-background/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-md">
+                  <Icon className="h-5 w-5 text-primary" />
+                  <span className="font-medium">{indicator.text}</span>
+                </div>
+              );
+            })}
           </div>
         </RevealOnScroll>
 
         {/* CTA */}
-        <RevealOnScroll delay={500}>
+        <RevealOnScroll>
           <div className="text-center">
-            <h3 className="text-3xl font-bold mb-3">
-              {AMBASSADORS.cta.text}
-            </h3>
-            <p className="text-xl text-fauji-cream mb-8">
-              {AMBASSADORS.cta.subtext}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                asChild
-                size="lg"
-                className="bg-white text-fauji-green hover:bg-fauji-cream font-bold text-lg h-16 px-10 shadow-2xl hover:shadow-white/30 transition-all duration-300 hover:scale-105 motion-reduce:hover:scale-100"
-              >
-                <a
-                  href={`https://wa.me/91${CONTACT.whatsapp}?text=Hi, I want to start my financial journey with Fauji Finance`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-3"
-                >
-                  <SiWhatsapp className="h-6 w-6" />
-                  <span>Connect on WhatsApp</span>
-                </a>
+            <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="text-lg px-8 py-6 hover:scale-105 transition-transform">
+                Start Your Journey Today
               </Button>
-            </div>
+            </a>
           </div>
         </RevealOnScroll>
       </div>

@@ -1,201 +1,80 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Homepage theme, responsive safety, animations, and finance-style photo/content sections",
+  "title": "Limit interest calculator to 1 year maximum using days input",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Rework Home page theme to a higher-contrast finance/army-green palette with consistent typography, spacing, and CTA styling.",
+      "summary": "Replace the 'years' input field with a 'days' input field that accepts values from 1 to 365 days",
       "acceptanceCriteria": [
-        "Home page sections have clearly differentiated background tones (e.g., alternating subtle tints) and readable text contrast on all cards/sections.",
-        "Primary/secondary CTA buttons have clear hover/focus states and remain readable on light and dark backgrounds.",
-        "No user-facing text is changed to non-English as part of this redesign (English only for new UI copy)."
+        "Form displays 'Days' label instead of 'Years'",
+        "Input accepts only integer values between 1 and 365",
+        "Validation error appears if user enters a value outside this range",
+        "Placeholder text shows example like '90' or '180'"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/index.css",
+          "path": "frontend/src/components/calculator/InterestCalculatorForm.tsx",
           "operation": "modify",
-          "description": "Adjust global OKLCH theme variables and base typography defaults to increase contrast and reinforce a cohesive army-green/cream finance palette (backgrounds, foregrounds, borders, card tones). Ensure focus-ring visibility. (Uses styling system from initial-app; verify the component's usage instructions before implementing.)"
-        },
-        {
-          "path": "frontend/tailwind.config.js",
-          "operation": "modify",
-          "description": "Extend Tailwind theme tokens (colors/shadows/animations) to support consistent finance-style section backgrounds, card elevation, and CTA states aligned with the updated palette. (Tailwind setup from initial-app/build-template-react; verify the component's usage instructions before implementing.)"
-        },
-        {
-          "path": "frontend/src/pages/HomePage.tsx",
-          "operation": "modify",
-          "description": "Apply updated palette and typography consistently across existing Home sections using composed shadcn-ui components (Button/Card/Badge/Separator) without editing frontend/src/components/ui; ensure CTAs have consistent hover/focus states across light/dark section backgrounds. Verify the component's usage instructions before implementing."
+          "description": "Replace the 'years' input field with a 'days' input field. Update the label from 'Years' to 'Days', change the input name and id attributes to 'days', set placeholder to '180', and update the min/max attributes to 1 and 365 respectively. Update state management to use 'days' instead of 'years'."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Eliminate responsive layout collisions/overlaps on Home by tightening spacing rules and breakpoints for hero overlay, transitions, and grids.",
+      "summary": "Update the frontend interest calculation logic to convert days to a fraction of a year before performing the calculation",
       "acceptanceCriteria": [
-        "At widths 360px, 768px, 1024px, and 1440px, no text, buttons, or images overlap each other (including the hero CTA overlay and carousel).",
-        "All sections maintain adequate vertical spacing between headings, cards, and media; no clipped content occurs.",
-        "Sticky/mobile UI (if present) does not cover critical Home page content."
+        "Calculation uses formula: principal × rate × (days/365)",
+        "Results display correctly for any valid days input",
+        "Precision is maintained for partial year calculations"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/HomePage.tsx",
+          "path": "frontend/src/hooks/useCalculateInterest.ts",
           "operation": "modify",
-          "description": "Refactor the hero CTA overlay positioning so it never collides with carousel content/controls (use responsive positioning, container spacing, and safe-area padding); audit and adjust section paddings, transitions, and grid gaps at 360/768/1024/1440 widths; ensure newly added sections follow the same spacing rules. Uses composed shadcn-ui primitives; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/HeroCarousel.tsx",
-          "operation": "modify",
-          "description": "Harden hero carousel layout to prevent overlay collisions at common breakpoints (height, content overlay spacing, control placement, and motion-reduce behavior) while keeping accessibility intact. Uses composed shadcn-ui Button; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/SiteLayout.tsx",
-          "operation": "modify",
-          "description": "Validate Home page bottom padding/safe-area handling so the StickyContactBar (mobile) cannot cover critical CTAs or new sections; adjust layout spacing hooks only (do not change bootstrap/auth hooks). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/StickyContactBar.tsx",
-          "operation": "modify",
-          "description": "Ensure mobile sticky bar height and safe-area inset handling are consistent so it does not obscure important Home content; coordinate with Home page padding utilities. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Add/adjust utility classes to support safe-area padding and consistent section spacing helpers used by Home (no per-component inline hacks). Verify the component's usage instructions before implementing."
+          "description": "Update the calculation logic to accept 'days' instead of 'years'. Convert days to a year fraction by dividing by 365 (days/365), then apply the existing formula: principal × 9 × (days/365). Ensure precision is maintained for partial year calculations by keeping decimal values."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Add lightweight modern finance-style animations (section transitions, hover micro-interactions, subtle accents) with full prefers-reduced-motion support.",
+      "summary": "Update the results display to show the number of days used in the calculation alongside the principal, interest, and total",
       "acceptanceCriteria": [
-        "Animations remain smooth and subtle (no large distracting motion) and are consistent across sections.",
-        "When the OS setting prefers-reduced-motion is enabled, auto-advancing and motion-heavy effects are disabled/reduced while content remains fully accessible.",
-        "Interactive elements (cards/buttons) show clear hover and focus feedback without layout shift."
+        "Results show 'Days: [number]' in the display",
+        "Days value matches the user's input",
+        "Display formatting is consistent with existing result fields"
       ],
       "file_operations": [
         {
-          "path": "frontend/tailwind.config.js",
+          "path": "frontend/src/components/calculator/ResultsDisplay.tsx",
           "operation": "modify",
-          "description": "Add/standardize subtle finance-style keyframes/animations (e.g., gentle fade/slide, accent shimmer, non-jarring hover glow) for reuse across Home sections; keep durations/easings consistent and compatible with motion-reduce classes. Verify the component's usage instructions before implementing."
+          "description": "Add a new field to display the number of days used in the calculation. Add 'Days: [number]' before or after the principal amount display, using the same layout pattern and styling as existing result fields (icon + label + value). Ensure the days value is passed through props and displayed consistently with the existing currency formatting style."
         },
         {
-          "path": "frontend/src/components/RevealOnScroll.tsx",
+          "path": "frontend/src/hooks/useCalculateInterest.ts",
           "operation": "modify",
-          "description": "Tune reveal behavior to feel more modern/finance-like (subtle easing, distance, stagger support) while ensuring prefers-reduced-motion disables motion-heavy effects and content remains immediately visible. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/HomePage.tsx",
-          "operation": "modify",
-          "description": "Apply consistent animation classes to section containers/cards/CTAs (micro-interactions on hover/focus without layout shift) and add subtle animated accent elements where appropriate, using existing RevealOnScroll and motion-reduce utilities. Uses composed shadcn-ui components; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/HeroCarousel.tsx",
-          "operation": "modify",
-          "description": "Ensure hero slide text animations remain subtle and are reduced/disabled under prefers-reduced-motion; confirm auto-advance remains disabled when reduced motion is enabled. Verify the component's usage instructions before implementing."
+          "description": "Update the return type to include the 'days' value alongside principal, interest, and total. This allows the ResultsDisplay component to show the days used in the calculation."
         }
       ]
     },
     {
       "id": "REQ-4",
-      "summary": "Add new Home sections: profit/savings example cards and at least one credibility section (testimonials/FAQs/stats) with responsive styling.",
+      "summary": "Update the validation utility to replace year validation with days validation",
       "acceptanceCriteria": [
-        "Home page includes a dedicated section that shows multiple (3+) example profit/savings scenarios in a clear card layout.",
-        "Home page includes at least one additional section chosen from testimonials, FAQs, or stats/metrics, with consistent styling and spacing.",
-        "All new sections are responsive and do not create overlap/collision issues."
+        "validateInput.ts checks for days range instead of years",
+        "Error messages reference 'days' terminology",
+        "Minimum value is 1 day, maximum is 365 days"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/home/ProfitExamplesSection.tsx",
-          "operation": "create",
-          "description": "Create a Home-only section component that renders 3+ profit/savings scenarios in a consistent card grid using composed shadcn-ui Card/Badge/Button, SectionHeading, and RevealOnScroll; keep new UI copy in English. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/home/CredibilitySection.tsx",
-          "operation": "create",
-          "description": "Create an additional credibility-oriented section component (choose one: testimonials, FAQs, or stats/metrics) styled consistently with the new theme; ensure keyboard/focus accessibility and responsive behavior; keep new UI copy in English. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/HomePage.tsx",
+          "path": "frontend/src/utils/validateInput.ts",
           "operation": "modify",
-          "description": "Wire the new ProfitExamplesSection and CredibilitySection into the existing Home page flow in appropriate positions (finance marketing layout), ensuring alternating background tones and non-colliding responsive spacing. Uses composed shadcn-ui components; verify the component's usage instructions before implementing."
+          "description": "Replace the year validation function with a days validation function. Update the function name from validateYears (or similar) to validateDays. Change the validation range from 0-30 years to 1-365 days. Update error messages to reference 'days' instead of 'years', such as 'Please enter a valid number of days between 1 and 365'."
         },
         {
-          "path": "frontend/src/content/faujiFinanceContent.ts",
+          "path": "frontend/src/components/calculator/InterestCalculatorForm.tsx",
           "operation": "modify",
-          "description": "Add structured content entries for profit/savings examples and the selected credibility section (items, labels, figures, optional disclaimers), keeping new copy in English for newly introduced strings. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Integrate AI-generated, non-identifiable finance brand-ambassador imagery into Home sections with graceful fallback loading.",
-      "acceptanceCriteria": [
-        "New AI-generated photo-style images are added as static assets under frontend/public/assets/generated and rendered on the Home page.",
-        "Images are clearly non-identifiable (no real celebrity likeness) and match the site’s color theme.",
-        "Images load via existing public asset URL handling and display a graceful fallback on error (using the existing image component pattern)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/celebrity-ambassador-1.dim_1200x1200.png",
-          "operation": "create",
-          "description": "Add generated static asset: frontend/public/assets/generated/celebrity-ambassador-1.dim_1200x1200.png (non-identifiable finance brand ambassador portrait)."
-        },
-        {
-          "path": "frontend/public/assets/generated/celebrity-ambassador-2.dim_1200x1200.png",
-          "operation": "create",
-          "description": "Add generated static asset: frontend/public/assets/generated/celebrity-ambassador-2.dim_1200x1200.png (non-identifiable finance brand ambassador portrait)."
-        },
-        {
-          "path": "frontend/public/assets/generated/celebrity-banner.dim_1920x800.png",
-          "operation": "create",
-          "description": "Add generated static asset: frontend/public/assets/generated/celebrity-banner.dim_1920x800.png (wide banner with 2–3 non-identifiable ambassadors)."
-        },
-        {
-          "path": "frontend/src/components/home/AmbassadorBannerSection.tsx",
-          "operation": "create",
-          "description": "Create a Home section that displays the new ambassador banner + portraits using publicAssetUrl and ImageWithFallback for graceful error handling; ensure images integrate with the army-green theme and remain responsive. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/HomePage.tsx",
-          "operation": "modify",
-          "description": "Wire AmbassadorBannerSection into Home (e.g., near credibility/profit sections) and ensure layout doesn’t collide at common breakpoints; use ImageWithFallback pattern for all new images. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Make new Home sections content-driven by extending the centralized Home content module and consuming it from the page/components.",
-      "acceptanceCriteria": [
-        "New Home page sections pull their titles/body/items from the existing content module pattern (e.g., frontend/src/content/faujiFinanceContent.ts).",
-        "No duplicated content constants are introduced in page components when a centralized content module is available.",
-        "The Home page renders successfully with the expanded content set."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/content/faujiFinanceContent.ts",
-          "operation": "modify",
-          "description": "Introduce centralized, structured exports for the new Home sections (profit/savings examples, credibility content, ambassador section copy/labels), designed for easy future edits without duplicating constants across components. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/home/ProfitExamplesSection.tsx",
-          "operation": "modify",
-          "description": "Consume profit/savings data exclusively from frontend/src/content/faujiFinanceContent.ts (no inline duplicated constants), rendering figures/cards consistently. Uses composed shadcn-ui components; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/home/CredibilitySection.tsx",
-          "operation": "modify",
-          "description": "Consume credibility section data exclusively from frontend/src/content/faujiFinanceContent.ts and render it responsively with consistent styling and motion-reduce support. Uses composed shadcn-ui components; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/home/AmbassadorBannerSection.tsx",
-          "operation": "modify",
-          "description": "Consume ambassador section labels/copy from frontend/src/content/faujiFinanceContent.ts while keeping image paths centralized and rendered via publicAssetUrl + ImageWithFallback. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/HomePage.tsx",
-          "operation": "modify",
-          "description": "Remove any duplicated inline content for the newly added sections and rely on frontend/src/content/faujiFinanceContent.ts as the single source for titles/items. Verify the component's usage instructions before implementing."
+          "description": "Update the form validation to call the new validateDays function instead of the year validation function. Ensure validation error messages display correctly for the days input field."
         }
       ]
     }
